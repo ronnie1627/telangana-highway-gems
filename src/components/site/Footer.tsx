@@ -1,0 +1,70 @@
+import { Link } from "@tanstack/react-router";
+import { Phone, Mail, MapPin, Instagram, Facebook } from "lucide-react";
+
+export function Footer() {
+  return (
+    <footer className="relative mt-32 border-t border-border bg-card/40">
+      <div className="hairline absolute inset-x-0 top-0" />
+      <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-4 lg:px-10">
+        <div>
+          <div className="flex items-center gap-3">
+            <span className="grid h-10 w-10 place-items-center rounded-sm bg-gradient-gold font-display text-lg font-bold text-primary-foreground">
+              KK
+            </span>
+            <span className="font-display text-xl text-foreground">KK Realtors</span>
+          </div>
+          <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">
+            Affordable open plots, HMDA approved villas and farm lands across Telangana's
+            fastest-growing highway corridors.
+          </p>
+          <div className="mt-6 flex gap-3">
+            <a href="#" className="grid h-9 w-9 place-items-center rounded-sm border border-border text-muted-foreground transition-colors hover:border-gold hover:text-gold">
+              <Instagram size={16} />
+            </a>
+            <a href="#" className="grid h-9 w-9 place-items-center rounded-sm border border-border text-muted-foreground transition-colors hover:border-gold hover:text-gold">
+              <Facebook size={16} />
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 className="font-display text-sm uppercase tracking-[0.25em] text-gold">Explore</h4>
+          <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
+            <li><Link to="/properties" className="hover:text-foreground">Properties</Link></li>
+            <li><Link to="/investors" className="hover:text-foreground">Investors</Link></li>
+            <li><Link to="/gallery" className="hover:text-foreground">Gallery</Link></li>
+            <li><Link to="/about" className="hover:text-foreground">About Us</Link></li>
+            <li><Link to="/contact" className="hover:text-foreground">Contact</Link></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="font-display text-sm uppercase tracking-[0.25em] text-gold">Corridors</h4>
+          <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
+            <li>Mumbai Highway</li>
+            <li>Bangalore Highway</li>
+            <li>Vijayawada Highway</li>
+            <li>Srisailam Highway</li>
+            <li>Shadnagar • Zaheerabad</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="font-display text-sm uppercase tracking-[0.25em] text-gold">Contact</h4>
+          <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
+            <li className="flex items-start gap-3"><MapPin size={16} className="mt-0.5 text-gold" /> Hyderabad, Telangana, India</li>
+            <li className="flex items-center gap-3"><Phone size={16} className="text-gold" /> +91 90000 00000</li>
+            <li className="flex items-center gap-3"><Mail size={16} className="text-gold" /> hello@kkrealtors.in</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="border-t border-border/60">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-6 text-xs text-muted-foreground sm:flex-row lg:px-10">
+          <p>© {new Date().getFullYear()} KK Realtors. All rights reserved.</p>
+          <p>HMDA • DTCP • LRS • RERA verified layouts</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
