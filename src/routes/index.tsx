@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
       { title: "KK Realtors — Affordable Open Plots, Villas & Farm Lands in Telangana" },
       { name: "description", content: "Low budget open plots, HMDA approved villas, farm lands and gated community homes across Hyderabad and Telangana's high-growth highway corridors." },
       { property: "og:title", content: "KK Realtors — Telangana's Trusted Real Estate Partner" },
-      { property: "og:description", content: "1200+ plots sold across 50+ locations. DTCP, LRS and HMDA approved properties on Mumbai, Bangalore, Vijayawada and Srisailam highways." },
+      { property: "og:description", content: "1200+ plots sold across 70+ locations. DTCP, LRS and HMDA approved properties on Mumbai, Bangalore, Vijayawada and Srisailam highways." },
       { property: "og:url", content: "/" },
     ],
     links: [{ rel: "canonical", href: "/" }],
