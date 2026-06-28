@@ -85,7 +85,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Premium yet affordable HMDA, DTCP and LRS approved open plots, villas, farm lands and gated communities across Telangana's high-growth highway corridors." },
       { name: "author", content: "KK Realtors" },
       { property: "og:title", content: "KK Realtors — Telangana Real Estate" },
-      { property: "og:description", content: "Affordable open plots, HMDA villas and farm lands across Telangana's Mumbai, Bangalore, Vijayawada and Srisailam highway corridors." },
+      { property: "og:description", content: "Affordable open plots, HMDA villas and farm lands across Telangana's Mumbai, Bangalore, Vijayawada, Srisailam and Warangal highway corridors." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@KKRealtors" },

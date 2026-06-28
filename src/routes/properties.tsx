@@ -10,7 +10,7 @@ export const Route = createFileRoute("/properties")({
   head: () => ({
     meta: [
       { title: "Properties — Open Plots, Villas, Farm Lands | KK Realtors" },
-      { name: "description", content: "Browse low-budget open plots, HMDA approved villas, farm lands and gated community homes across Telangana's Mumbai, Bangalore, Vijayawada and Srisailam highways." },
+      { name: "description", content: "Browse low-budget open plots, HMDA approved villas, farm lands and gated community homes across Telangana's Mumbai, Bangalore, Vijayawada, Srisailam and Warangal highways." },
       { property: "og:title", content: "KK Realtors Properties" },
       { property: "og:description", content: "Verified, financeable, high-growth properties across Telangana." },
       { property: "og:url", content: "/properties" },

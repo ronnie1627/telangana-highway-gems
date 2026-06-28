@@ -186,15 +186,16 @@ function Corridors() {
     { name: "Bangalore Highway", points: "Shadnagar · Kothur" },
     { name: "Vijayawada Highway", points: "HMDA Villa Communities" },
     { name: "Srisailam Highway", points: "Premium Plots & Farms" },
+    { name: "Warangal Highway", points: "Emerging Growth Corridor" },
   ];
   return (
     <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
       <SectionHeader
         eyebrow="Highway Corridors"
         title="Invest where Telangana is growing fastest."
-        subtitle="Strategic locations along Hyderabad's four major highway corridors — proven appreciation, ready infrastructure."
+        subtitle="Strategic locations along Hyderabad's five major highway corridors — proven appreciation, ready infrastructure."
       />
-      <div className="mt-12 grid gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-12 grid gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">
         {corridors.map((c) => (
           <div key={c.name} className="group cursor-default bg-card p-8 transition-colors hover:bg-card/60">
             <div className="text-[11px] uppercase tracking-[0.3em] text-gold">Corridor</div>

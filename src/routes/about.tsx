@@ -21,7 +21,7 @@ export const Route = createFileRoute("/about")({
 const pillars = [
   { t: "Customer Trust", d: "Every relationship begins with honesty. We disclose every cost, document and risk up front." },
   { t: "Transparent Deals", d: "Verified titles, clear approvals and full legal support across every transaction." },
-  { t: "Highway Corridor Focus", d: "We invest where Telangana is growing — strategic plots along four major highway corridors." },
+  { t: "Highway Corridor Focus", d: "We invest where Telangana is growing — strategic plots along five major highway corridors." },
   { t: "Quality Properties", d: "Only HMDA, DTCP and LRS approved layouts with bank-loan-ready documentation." },
   { t: "Long-term Appreciation", d: "We help you buy assets that grow with Hyderabad's expanding metro footprint." },
   { t: "Loan Support", d: "Tie-ups with leading public and private banks to make ownership effortless." },

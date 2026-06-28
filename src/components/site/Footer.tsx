@@ -45,6 +45,7 @@ export function Footer() {
             <li>Bangalore Highway</li>
             <li>Vijayawada Highway</li>
             <li>Srisailam Highway</li>
+            <li>Warangal Highway</li>
             <li>Shadnagar • Zaheerabad</li>
           </ul>
         </div>

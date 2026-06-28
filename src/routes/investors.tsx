@@ -19,7 +19,7 @@ export const Route = createFileRoute("/investors")({
 });
 
 const drivers = [
-  { icon: TrendingUp, t: "Highway Corridor Appreciation", d: "Land values along Hyderabad's four major corridors have consistently outperformed metro averages." },
+  { icon: TrendingUp, t: "Highway Corridor Appreciation", d: "Land values along Hyderabad's five major corridors have consistently outperformed metro averages." },
   { icon: Building2, t: "Infrastructure Development", d: "Metro expansion, ring roads and industrial parks are reshaping the demand map of Telangana." },
   { icon: MapPinned, t: "Growing Demand", d: "Hyderabad's IT, pharma and aviation footprint is fueling demand for plots, villas and farm lands." },
   { icon: Banknote, t: "Affordable Entry Prices", d: "Get in early at corridor prices that are still a fraction of central Hyderabad — with full loan support." },
@@ -30,6 +30,7 @@ const corridors = [
   { name: "Bangalore Highway", d: "Southern IT corridor with Shadnagar and Kothur emerging as top investment zones." },
   { name: "Vijayawada Highway", d: "Eastern corridor lined with HMDA villa communities and premium gated layouts." },
   { name: "Srisailam Highway", d: "Scenic southern stretch with farm lands and weekend home opportunities." },
+  { name: "Warangal Highway", d: "Eastern growth route connecting Hyderabad to Warangal with rising industrial and residential demand." },
 ];
 
 function Investors() {
