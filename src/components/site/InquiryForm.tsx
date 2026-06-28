@@ -19,6 +19,7 @@ export function InquiryForm({ compact = false }: { compact?: boolean }) {
       <Field name="name" label="Full Name" required />
       <Field name="phone" label="Phone Number" type="tel" required />
       <Field name="email" label="Email" type="email" />
+      <BudgetSelect />
       <Field name="requirement" label="Property Requirement" placeholder="e.g. HMDA villa, Shadnagar plot" />
       <div className={compact ? "" : "sm:col-span-2"}>
         <label className="block text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Message</label>
