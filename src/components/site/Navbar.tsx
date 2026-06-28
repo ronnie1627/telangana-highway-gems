@@ -36,7 +36,7 @@ export function Navbar() {
           <img
             src={logoAsset.url}
             alt="KK Realtors"
-            className="h-16 w-auto object-contain"
+            className="h-24 w-auto object-contain"
           />
         </Link>
 
