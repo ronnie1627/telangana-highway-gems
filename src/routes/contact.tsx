@@ -47,9 +47,9 @@ function Contact() {
             <p className="mt-2 text-sm text-muted-foreground">Hyderabad, Telangana, India</p>
 
             <div className="mt-6 space-y-4 text-sm">
-              <a href="tel:+919000000000" className="flex items-center gap-3 text-foreground hover:text-gold">
+              <a href="tel:+918247532795" className="flex items-center gap-3 text-foreground hover:text-gold">
                 <span className="grid h-10 w-10 place-items-center rounded-sm border border-gold/40 text-gold"><Phone size={16} /></span>
-                +91 90000 00000
+                +91 8247532795
               </a>
               <a href="mailto:hello@kkrealtors.in" className="flex items-center gap-3 text-foreground hover:text-gold">
                 <span className="grid h-10 w-10 place-items-center rounded-sm border border-gold/40 text-gold"><Mail size={16} /></span>
@@ -63,7 +63,7 @@ function Contact() {
 
             <div className="mt-8 flex flex-col gap-2">
               <a
-                href="https://wa.me/919000000000"
+                href="https://wa.me/918247532795"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-sm bg-[oklch(0.72_0.18_145)] px-5 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white"
@@ -71,7 +71,7 @@ function Contact() {
                 <MessageCircle size={16} /> WhatsApp Chat
               </a>
               <a
-                href="tel:+919000000000"
+                href="tel:+918247532795"
                 className="inline-flex items-center justify-center gap-2 rounded-sm border border-gold/60 px-5 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-gold hover:bg-gold/10"
               >
                 <Phone size={16} /> Call Now
