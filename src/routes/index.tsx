@@ -108,7 +108,7 @@ function FeaturedBand() {
   const items = [
     { icon: BadgeCheck, text: "Limited Plots Available" },
     { icon: Sparkles, text: "Best Price Guaranteed" },
-    { icon: FileCheck2, text: "DTCP · LRS · HMDA Approved" },
+    { icon: FileCheck2, text: "\u00a0HMDA ·\u00a0DTCP ·\u00a0LRS\u00a0Approved" },
     { icon: Compass, text: "Highway Corridor Investments" },
   ];
   return (
