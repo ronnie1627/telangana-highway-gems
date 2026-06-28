@@ -7,7 +7,7 @@ const badges = [
   "Loan Available",
   "Verified Documentation",
   "1200+ Successful Plot Sales",
-  "50+ Locations Covered",
+  "70+ Locations Covered",
 ];
 
 export function TrustBadges() {
