@@ -19,6 +19,7 @@ export function InquiryForm({ compact = false }: { compact?: boolean }) {
       <Field name="name" label="Full Name" required />
       <Field name="phone" label="Phone Number" type="tel" required />
       <Field name="email" label="Email" type="email" />
+      <BudgetSelect />
       <Field name="requirement" label="Property Requirement" placeholder="e.g. HMDA villa, Shadnagar plot" />
       <div className={compact ? "" : "sm:col-span-2"}>
         <label className="block text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Message</label>
@@ -67,6 +68,38 @@ function Field({
         placeholder={placeholder}
         className="mt-2 w-full rounded-sm border border-border bg-input/30 px-4 py-3 text-sm text-foreground outline-none transition-colors focus:border-gold"
       />
+    </div>
+  );
+}
+
+function BudgetSelect() {
+  const options = [
+    "Below ₹20 Lakhs",
+    "₹20 - ₹50 Lakhs",
+    "₹50 Lakhs - ₹1 Crore",
+    "₹1 - ₹3 Crores",
+    "₹3 - ₹5 Crores",
+    "Above ₹5 Crores",
+  ];
+  return (
+    <div>
+      <label className="block text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+        Budget Range
+      </label>
+      <select
+        name="budget"
+        className="mt-2 w-full rounded-sm border border-border bg-input/30 px-4 py-3 text-sm text-foreground outline-none transition-colors focus:border-gold"
+        defaultValue=""
+      >
+        <option value="" disabled>
+          Select your budget
+        </option>
+        {options.map((opt) => (
+          <option key={opt} value={opt}>
+            {opt}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }
