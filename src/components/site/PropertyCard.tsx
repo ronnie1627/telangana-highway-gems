@@ -53,7 +53,7 @@ export function PropertyCard({ p }: { p: Property }) {
             Enquire Now
           </Link>
           <a
-            href={`https://wa.me/919000000000?text=Hi%2C%20I%27m%20interested%20in%20${encodeURIComponent(p.title)}`}
+            href={`https://wa.me/918247532795?text=Hi%2C%20I%27m%20interested%20in%20${encodeURIComponent(p.title)}`}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="WhatsApp"
