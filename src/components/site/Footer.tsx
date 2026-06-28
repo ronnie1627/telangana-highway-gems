@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Phone, Mail, MapPin, Instagram, Facebook } from "lucide-react";
+import logoAsset from "@/assets/kk-realtors-logo.png.asset.json";
 
 export function Footer() {
   return (
@@ -8,10 +9,11 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-4 lg:px-10">
         <div>
           <div className="flex items-center gap-3">
-            <span className="grid h-10 w-10 place-items-center rounded-sm bg-gradient-gold font-display text-lg font-bold text-primary-foreground">
-              KK
-            </span>
-            <span className="font-display text-xl text-foreground">KK Realtors</span>
+            <img
+              src={logoAsset.url}
+              alt="KK Realtors"
+              className="h-12 w-auto object-contain"
+            />
           </div>
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">
             Affordable open plots, HMDA approved villas and farm lands across Telangana's
