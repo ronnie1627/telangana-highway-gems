@@ -12,7 +12,7 @@ export function Footer() {
             <img
               src={logoAsset.url}
               alt="KK Realtors"
-              className="h-12 w-auto object-contain"
+              className="h-16 w-auto object-contain"
             />
           </div>
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">
