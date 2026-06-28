@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import logoAsset from "@/assets/kk-realtors-logo.png.asset.json";
 
 const links = [
   { to: "/", label: "Home" },
@@ -32,13 +33,11 @@ export function Navbar() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
         <Link to="/" className="group flex items-center gap-3" onClick={() => setOpen(false)}>
-          <span className="grid h-10 w-10 place-items-center rounded-sm bg-gradient-gold font-display text-lg font-bold text-primary-foreground shadow-gold">
-            KK
-          </span>
-          <span className="flex flex-col leading-tight">
-            <span className="font-display text-lg tracking-wide text-foreground">KK Realtors</span>
-            <span className="text-[10px] uppercase tracking-[0.25em] text-gold">Telangana Estates</span>
-          </span>
+          <img
+            src={logoAsset.url}
+            alt="KK Realtors"
+            className="h-12 w-auto object-contain"
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
