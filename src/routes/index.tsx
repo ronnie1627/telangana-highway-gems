@@ -67,8 +67,9 @@ function Hero() {
           </h1>
 
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-            Invest today in Telangana's fastest-growing real estate corridors. HMDA, DTCP and LRS
-            approved properties with bank loan support and verified documentation.
+            Invest today in Telangana's fastest-growing real estate corridors. HMDA, DTCP, LRS,
+            Farms and agricultural lands approved properties across Hyderabad & Telangana with bank
+            loan support and verified documentation.&nbsp;
           </p>
 
           <div className="mt-10 flex flex-wrap gap-3">
