@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
       { title: "KK Realtors — Affordable Open Plots, Villas & Farm Lands in Telangana" },
       { name: "description", content: "Low budget open plots, HMDA approved villas, farm lands and gated community homes across Hyderabad and Telangana's high-growth highway corridors." },
       { property: "og:title", content: "KK Realtors — Telangana's Trusted Real Estate Partner" },
-      { property: "og:description", content: "1200+ plots sold across 50+ locations. DTCP, LRS and HMDA approved properties on Mumbai, Bangalore, Vijayawada and Srisailam highways." },
+      { property: "og:description", content: "1200+ plots sold across 70+ locations. DTCP, LRS and HMDA approved properties on Mumbai, Bangalore, Vijayawada and Srisailam highways." },
       { property: "og:url", content: "/" },
     ],
     links: [{ rel: "canonical", href: "/" }],
@@ -67,8 +67,9 @@ function Hero() {
           </h1>
 
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-            Invest today in Telangana's fastest-growing real estate corridors. HMDA, DTCP and LRS
-            approved properties with bank loan support and verified documentation.
+            Invest today in Telangana's fastest-growing real estate corridors. HMDA, DTCP, LRS,
+            Farms and agricultural lands approved properties across Hyderabad & Telangana with bank
+            loan support and verified documentation.&nbsp;
           </p>
 
           <div className="mt-10 flex flex-wrap gap-3">
@@ -94,7 +95,7 @@ function Hero() {
 
           <div className="mt-14 grid max-w-2xl grid-cols-3 gap-6 border-t border-border/60 pt-8">
             <Stat value="1200+" label="Plots Sold" />
-            <Stat value="50+" label="Locations Covered" />
+            <Stat value="70+" label="Locations Covered" />
             <Stat value="100%" label="Verified Title" />
           </div>
         </div>
@@ -107,7 +108,7 @@ function FeaturedBand() {
   const items = [
     { icon: BadgeCheck, text: "Limited Plots Available" },
     { icon: Sparkles, text: "Best Price Guaranteed" },
-    { icon: FileCheck2, text: "DTCP · LRS · HMDA Approved" },
+    { icon: FileCheck2, text: "\u00a0HMDA ·\u00a0DTCP ·\u00a0LRS\u00a0Approved" },
     { icon: Compass, text: "Highway Corridor Investments" },
   ];
   return (

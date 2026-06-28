@@ -62,7 +62,7 @@ function About() {
           </p>
           <div className="mt-10 grid grid-cols-3 gap-6 border-t border-border pt-8">
             <Stat value="1200+" label="Plots Sold" />
-            <Stat value="50+" label="Locations" />
+            <Stat value="70+" label="Locations" />
             <Stat value="10+" label="Years Trust" />
           </div>
         </div>
