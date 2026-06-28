@@ -95,7 +95,7 @@ function Hero() {
 
           <div className="mt-14 grid max-w-2xl grid-cols-3 gap-6 border-t border-border/60 pt-8">
             <Stat value="1200+" label="Plots Sold" />
-            <Stat value="50+" label="Locations Covered" />
+            <Stat value="70+" label="Locations Covered" />
             <Stat value="100%" label="Verified Title" />
           </div>
         </div>
