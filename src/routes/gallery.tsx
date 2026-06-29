@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { galleryImages } from "@/data/properties";
 import { SectionHeader } from "@/components/site/SectionHeader";
 
-const tags = ["All", "Open Plots", "Villas", "Farm Lands", "Gated Communities", "Location Photos"] as const;
+const tags = ["All", "Warangal Highway", "Open Plots", "Villas", "Farm Lands", "Gated Communities", "Location Photos"] as const;
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
