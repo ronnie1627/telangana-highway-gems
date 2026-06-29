@@ -237,7 +237,7 @@ function Testimonials() {
                 <Star key={i} size={14} fill="currentColor" />
               ))}
             </div>
-            <blockquote className="mt-4 text-sm leading-relaxed text-foreground">"{t.text}"</blockquote>
+            <blockquote className="mt-4 text-sm leading-relaxed text-foreground">{t.text}</blockquote>
             <figcaption className="mt-5 text-xs uppercase tracking-[0.2em] text-muted-foreground">— {t.name}</figcaption>
           </figure>
         ))}

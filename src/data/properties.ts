@@ -108,9 +108,9 @@ export const galleryImages = [
 export const testimonials = [
   { name: "Ravi Kumar", rating: 5, text: "Smooth buying process from start to finish. KK Realtors handled every document professionally." },
   { name: "Sneha Reddy", rating: 5, text: "Got an HMDA villa on Vijayawada highway at a fair price. The site visit was very informative." },
-  { name: "Mohammed Imran", rating: 5, text: "Transparent paperwork and honest pricing — exactly what I was looking for." },
+  { name: "Mohammed Imran", rating: 5, text: "Transparent paperwork and honest pricing exactly what I was looking for." },
   { name: "Lakshmi Prasad", rating: 4, text: "Helpful team during site visits, no pushy sales. I bought two plots in Shadnagar." },
-  { name: "Anjali Verma", rating: 5, text: "Best price guaranteed — they delivered. Loan was processed quickly through their banking partner." },
+  { name: "Anjali Verma", rating: 5, text: "Best price guaranteed they delivered. Loan was processed quickly through their banking partner." },
   { name: "Suresh Babu", rating: 5, text: "Already seeing appreciation on my Mumbai highway plot. A genuinely good investment decision." },
   { name: "Priya Sharma", rating: 5, text: "Lake view 3BHK is a dream. Premium amenities and great neighbours." },
   { name: "Karthik Naidu", rating: 5, text: "Documentation was crystal clear. DTCP and LRS approvals were all in order." },
