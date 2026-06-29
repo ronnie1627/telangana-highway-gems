@@ -36,26 +36,6 @@ export const submitInquiry = createServerFn({ method: "POST" })
       throw new Error("Failed to save inquiry");
     }
 
-    // Send email notification to the team (best-effort; requires email domain setup)
-    try {
-      const { sendLovableEmail } = await import("@lovable.dev/email-js");
-      await sendLovableEmail({
-        to: "kkrealtors02@gmail.com",
-        subject: `New Inquiry from ${data.name}`,
-        html: `
-          <h2>New Property Inquiry — KK Realtors</h2>
-          <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
-          <p><strong>Phone:</strong> ${escapeHtml(data.phone)}</p>
-          <p><strong>Email:</strong> ${escapeHtml(data.email || "—")}</p>
-          <p><strong>Budget:</strong> ${escapeHtml(data.budget || "—")}</p>
-          <p><strong>Requirement:</strong> ${escapeHtml(data.requirement || "—")}</p>
-          <p><strong>Message:</strong><br/>${escapeHtml(data.message || "—").replace(/\n/g, "<br/>")}</p>
-        `,
-      });
-    } catch (err) {
-      console.warn("Email notification skipped:", (err as Error)?.message);
-    }
-
     return { ok: true };
   });
 
