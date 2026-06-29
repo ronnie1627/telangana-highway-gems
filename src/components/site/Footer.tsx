@@ -57,7 +57,7 @@ export function Footer() {
           <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
             <li className="flex items-start gap-3"><MapPin size={16} className="mt-0.5 text-gold" /> Hyderabad, Telangana, India</li>
             <li className="flex items-center gap-3"><Phone size={16} className="text-gold" /> +91 8247532795</li>
-            <li className="flex items-center gap-3"><Mail size={16} className="text-gold" /> hello@kkrealtors.in</li>
+            <li className="flex items-center gap-3"><Mail size={16} className="text-gold" /><a href="mailto:KKrealtors02@gmail.com" className="hover:text-gold">KKrealtors02@gmail.com</a></li>
           </ul>
         </div>
       </div>
