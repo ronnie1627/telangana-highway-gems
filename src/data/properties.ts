@@ -15,6 +15,11 @@ import warangal7 from "@/assets/warangal-kesaraguta-7.jpg.asset.json";
 import warangal8 from "@/assets/warangal-kesaraguta-8.jpg.asset.json";
 import warangal9 from "@/assets/warangal-kesaraguta-9.jpg.asset.json";
 import warangal10 from "@/assets/warangal-kesaraguta-10.jpg.asset.json";
+import shadnagar1 from "@/assets/shadnagar-1.jpg.asset.json";
+import shadnagar2 from "@/assets/shadnagar-2.jpg.asset.json";
+import shadnagar3 from "@/assets/shadnagar-3.jpg.asset.json";
+import shadnagar4 from "@/assets/shadnagar-4.jpg.asset.json";
+import shadnagar5 from "@/assets/shadnagar-5.jpg.asset.json";
 
 export type Property = {
   id: string;
@@ -65,12 +70,12 @@ export const properties: Property[] = [
     id: "shadnagar-plots",
     title: "Open Plots for Sale — Shadnagar",
     category: "Open Plots",
-    location: "Shadnagar, Bangalore Highway",
-    approvals: ["DTCP", "LRS"],
-    features: ["Affordable Investment", "Highway Connectivity", "Loan Facility Available"],
-    price: "Starting ₹ 9.2L",
-    image: shadnagar,
-    highlight: "Best Price",
+    location: "Shadnagar Town, Bangalore Highway",
+    approvals: ["HMDA", "Loan Available"],
+    features: ["HMDA Approved", "Shadnagar Town Location", "Highway Connectivity", "Gated Layout"],
+    price: "₹ 25,299 / sq.yd",
+    image: shadnagar1.url,
+    highlight: "HMDA Approved",
   },
   {
     id: "hmda-villas",
