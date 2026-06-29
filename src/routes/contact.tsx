@@ -51,9 +51,9 @@ function Contact() {
                 <span className="grid h-10 w-10 place-items-center rounded-sm border border-gold/40 text-gold"><Phone size={16} /></span>
                 +91 8247532795
               </a>
-              <a href="mailto:hello@kkrealtors.in" className="flex items-center gap-3 text-foreground hover:text-gold">
+              <a href="mailto:KKrealtors02@gmail.com" className="flex items-center gap-3 text-foreground hover:text-gold">
                 <span className="grid h-10 w-10 place-items-center rounded-sm border border-gold/40 text-gold"><Mail size={16} /></span>
-                hello@kkrealtors.in
+                KKrealtors02@gmail.com
               </a>
               <div className="flex items-start gap-3 text-foreground">
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-sm border border-gold/40 text-gold"><MapPin size={16} /></span>
