@@ -5,6 +5,16 @@ import lakeview from "@/assets/prop-lakeview.jpg";
 import shadnagar from "@/assets/prop-shadnagar.jpg";
 import highway from "@/assets/prop-highway.jpg";
 import interior from "@/assets/prop-interior.jpg";
+import warangal1 from "@/assets/warangal-kesaraguta-1.jpg.asset.json";
+import warangal2 from "@/assets/warangal-kesaraguta-2.jpg.asset.json";
+import warangal3 from "@/assets/warangal-kesaraguta-3.jpg.asset.json";
+import warangal4 from "@/assets/warangal-kesaraguta-4.jpg.asset.json";
+import warangal5 from "@/assets/warangal-kesaraguta-5.jpg.asset.json";
+import warangal6 from "@/assets/warangal-kesaraguta-6.jpg.asset.json";
+import warangal7 from "@/assets/warangal-kesaraguta-7.jpg.asset.json";
+import warangal8 from "@/assets/warangal-kesaraguta-8.jpg.asset.json";
+import warangal9 from "@/assets/warangal-kesaraguta-9.jpg.asset.json";
+import warangal10 from "@/assets/warangal-kesaraguta-10.jpg.asset.json";
 
 export type Property = {
   id: string;
@@ -19,6 +29,17 @@ export type Property = {
 };
 
 export const properties: Property[] = [
+  {
+    id: "warangal-kesaraguta-bibinagar",
+    title: "HMDA Open Plots — Kesaraguta, Bibinagar (Near AIIMS)",
+    category: "Open Plots",
+    location: "Kesaraguta, Bibinagar • Warangal Highway • Near AIIMS Hospital",
+    approvals: ["HMDA", "Loan Available"],
+    features: ["Near AIIMS Hospital", "Warangal Highway Frontage", "Gated Layout", "Black-top Roads"],
+    price: "Starting ₹ 13,999 / sq.yd",
+    image: warangal1.url,
+    highlight: "HMDA Approved",
+  },
   {
     id: "budhera-mumbai-hwy",
     title: "Low Budget Open Plots — Mumbai Highway",
@@ -96,6 +117,16 @@ export const properties: Property[] = [
 ];
 
 export const galleryImages = [
+  { src: warangal1.url, tag: "Warangal Highway", caption: "Kesaraguta Layout — Avenue" },
+  { src: warangal2.url, tag: "Warangal Highway", caption: "Project Entrance Arch" },
+  { src: warangal3.url, tag: "Warangal Highway", caption: "Gated Entry — Day View" },
+  { src: warangal4.url, tag: "Warangal Highway", caption: "Master Layout Plan" },
+  { src: warangal5.url, tag: "Warangal Highway", caption: "Internal Roads — Night" },
+  { src: warangal6.url, tag: "Warangal Highway", caption: "Entrance Arch — Evening" },
+  { src: warangal7.url, tag: "Warangal Highway", caption: "Wide Black-top Road" },
+  { src: warangal8.url, tag: "Warangal Highway", caption: "Tree-lined Pathway" },
+  { src: warangal9.url, tag: "Warangal Highway", caption: "Children's Play Area" },
+  { src: warangal10.url, tag: "Warangal Highway", caption: "Aerial View — Night" },
   { src: openplots, tag: "Open Plots", caption: "Mumbai Highway Layout" },
   { src: shadnagar, tag: "Open Plots", caption: "Shadnagar Township" },
   { src: villas, tag: "Villas", caption: "HMDA Villa Community" },
