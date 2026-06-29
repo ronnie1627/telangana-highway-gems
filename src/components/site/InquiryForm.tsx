@@ -1,17 +1,36 @@
 import { useState } from "react";
 import { toast } from "sonner";
+import { useServerFn } from "@tanstack/react-start";
+import { submitInquiry } from "@/lib/inquiries.functions";
 
 export function InquiryForm({ compact = false }: { compact?: boolean }) {
   const [submitting, setSubmitting] = useState(false);
+  const submit = useServerFn(submitInquiry);
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
-      (e.target as HTMLFormElement).reset();
+    try {
+      await submit({
+        data: {
+          name: String(fd.get("name") || ""),
+          phone: String(fd.get("phone") || ""),
+          email: String(fd.get("email") || ""),
+          budget: String(fd.get("budget") || ""),
+          requirement: String(fd.get("requirement") || ""),
+          message: String(fd.get("message") || ""),
+        },
+      });
+      form.reset();
       toast.success("Thank you! Our team will reach out within 24 hours.");
-    }, 700);
+    } catch (err) {
+      console.error(err);
+      toast.error("Could not submit. Please try again or call us directly.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
