@@ -45,7 +45,7 @@ export function Navbar() {
             <Link
               key={l.to}
               to={l.to}
-              className="group relative text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              className="group relative text-base font-medium text-muted-foreground transition-colors hover:text-foreground"
               activeProps={{ className: "text-foreground" }}
             >
               {l.label}
