@@ -82,6 +82,17 @@ export const properties: Property[] = [
     highlight: "HMDA Approved",
   },
   {
+    id: "iconic-9-burgula",
+    title: "Iconic-9 — Open Plots, Burgula (Shadnagar)",
+    category: "Open Plots",
+    location: "Burgula Village, Shadnagar",
+    approvals: ["HMDA", "Loan Available"],
+    features: ["HMDA Approved (LP No. 1681/HMDA/SWDL/2026)", "Flexible Payment Options", "Gated Layout", "Wide Black-top Roads"],
+    price: "₹ 16,299 / sq.yd",
+    image: iconic2.url,
+    highlight: "HMDA Approved",
+  },
+  {
     id: "hmda-villas",
     title: "HMDA Approved Villas & Plots",
     category: "Villas & Plots",
