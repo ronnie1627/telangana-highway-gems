@@ -149,7 +149,7 @@ export const properties: Property[] = [
 ];
 
 export const galleryImages = [
-  { src: warangal1.url, tag: "Warangal Highway", caption: "Kesaraguta Layout — Avenue" },
+  { src: warangal1.url, tag: "Warangal Highway", caption: "keesaragutta Layout — Avenue" },
   { src: warangal2.url, tag: "Warangal Highway", caption: "Project Entrance Arch" },
   { src: warangal3.url, tag: "Warangal Highway", caption: "Gated Entry — Day View" },
   { src: warangal4.url, tag: "Warangal Highway", caption: "Master Layout Plan" },
