@@ -24,6 +24,7 @@ import iconic1 from "@/assets/iconic9-1.jpeg.asset.json";
 import iconic2 from "@/assets/iconic9-2.jpeg.asset.json";
 import iconic3 from "@/assets/iconic9-3.jpeg.asset.json";
 import iconic4 from "@/assets/iconic9-4.jpeg.asset.json";
+import dreamValley3 from "@/assets/dream-valley-3.jpg.asset.json";
 
 export type Property = {
   id: string;
