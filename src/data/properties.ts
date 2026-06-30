@@ -41,7 +41,7 @@ export type Property = {
 export const properties: Property[] = [
   {
     id: "warangal-kesaraguta-bibinagar",
-    title: "HMDA Open Plots — Kesaraguta, Bibinagar (Near AIIMS)",
+    title: "HMDA Open Plots —keesaragutta, Bibinagar (Near AIIMS)",
     category: "Open Plots",
     location: "Kesaraguta, Bibinagar • Warangal Highway • Near AIIMS Hospital",
     approvals: ["HMDA", "Loan Available"],
