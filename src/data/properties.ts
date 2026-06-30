@@ -24,6 +24,7 @@ import iconic1 from "@/assets/iconic9-1.jpeg.asset.json";
 import iconic2 from "@/assets/iconic9-2.jpeg.asset.json";
 import iconic3 from "@/assets/iconic9-3.jpeg.asset.json";
 import iconic4 from "@/assets/iconic9-4.jpeg.asset.json";
+import dreamValley3 from "@/assets/dream-valley-3.jpg.asset.json";
 
 export type Property = {
   id: string;
@@ -114,6 +115,17 @@ export const properties: Property[] = [
     image: farmland,
   },
   {
+    id: "dream-valley-3",
+    title: "Dream Valley-3 — Premium Farm Plots",
+    category: "Farm Land",
+    location: "Nagulapally Village, Near Shadnagar",
+    approvals: ["Premium Farmlands"],
+    features: ["100 Acres Mega Project", "Mini Resort & Cottages", "24/7 Security", "CCTV Surveillance", "Gated Community", "Clear Legal Titles", "EMI Facility Available"],
+    price: "₹ 13,299 / sq.yd",
+    image: dreamValley3.url,
+    highlight: "Premium Farmlands",
+  },
+  {
     id: "sagar-lakeview",
     title: "Lake View Gated Community — 2/3 BHK",
     category: "Gated Community",
@@ -161,6 +173,7 @@ export const galleryImages = [
   { src: villas, tag: "Villas", caption: "HMDA Villa Community" },
   { src: interior, tag: "Villas", caption: "Luxury Interiors" },
   { src: farmland, tag: "Farm Lands", caption: "Green Acreage" },
+  { src: dreamValley3.url, tag: "Farm Lands", caption: "Dream Valley-3 — Nagulapally Village" },
   { src: lakeview, tag: "Gated Communities", caption: "Lake View Homes" },
   { src: highway, tag: "Location Photos", caption: "Highway Corridor" },
 ];
