@@ -115,6 +115,17 @@ export const properties: Property[] = [
     image: farmland,
   },
   {
+    id: "dream-valley-3",
+    title: "Dream Valley-3 — Premium Farm Plots",
+    category: "Farm Land",
+    location: "Nagulapally Village, Near Shadnagar",
+    approvals: ["Premium Farmlands"],
+    features: ["100 Acres Mega Project", "Mini Resort & Cottages", "24/7 Security", "CCTV Surveillance", "Gated Community", "Clear Legal Titles", "EMI Facility Available"],
+    price: "₹ 13,299 / sq.yd",
+    image: dreamValley3.url,
+    highlight: "Premium Farmlands",
+  },
+  {
     id: "sagar-lakeview",
     title: "Lake View Gated Community — 2/3 BHK",
     category: "Gated Community",
