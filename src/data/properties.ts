@@ -25,6 +25,16 @@ import iconic2 from "@/assets/iconic9-2.jpeg.asset.json";
 import iconic3 from "@/assets/iconic9-3.jpeg.asset.json";
 import iconic4 from "@/assets/iconic9-4.jpeg.asset.json";
 import dreamValley3 from "@/assets/dream-valley-3.jpg.asset.json";
+import amangal1 from "@/assets/amangal-1.jpeg.asset.json";
+import amangal2 from "@/assets/amangal-2.jpeg.asset.json";
+import amangal3 from "@/assets/amangal-3.jpeg.asset.json";
+import amangal4 from "@/assets/amangal-4.jpeg.asset.json";
+import amangal5 from "@/assets/amangal-5.jpeg.asset.json";
+import amangal6 from "@/assets/amangal-6.jpeg.asset.json";
+import amangal7 from "@/assets/amangal-7.jpeg.asset.json";
+import amangal8 from "@/assets/amangal-8.jpeg.asset.json";
+import amangalHouse from "@/assets/amangal-1bhk-house.jpeg.asset.json";
+import amangalPrice from "@/assets/amangal-1bhk-price.jpeg.asset.json";
 
 export type Property = {
   id: string;
@@ -92,6 +102,28 @@ export const properties: Property[] = [
     price: "₹ 16,299 / sq.yd",
     image: iconic2.url,
     highlight: "HMDA Approved",
+  },
+  {
+    id: "amangal-srisailam",
+    title: "Open Plots for Sale — Amangal (Srisailam Highway)",
+    category: "Open Plots",
+    location: "Amangal, Srisailam Highway",
+    approvals: ["Clear Documentation", "Loan Available"],
+    features: ["Srisailam Highway Frontage", "Gated Layout", "Hillside Views", "Wide Black-top Roads", "Underground Drainage"],
+    price: "Starting ₹ 13,999 / sq.yd",
+    image: amangal1.url,
+    highlight: "New Launch",
+  },
+  {
+    id: "amangal-1bhk-house",
+    title: "1 BHK House — Amangal (Srisailam Highway)",
+    category: "Villas & Plots",
+    location: "Amangal, Srisailam Highway",
+    approvals: ["Ready to Build", "Loan Available"],
+    features: ["150 sq.yds Plot", "530 sft Construction", "1 BHK Home", "Move-in Ready Design", "Smart Investment"],
+    price: "₹ 31 Lakhs*",
+    image: amangalHouse.url,
+    highlight: "₹ 31 Lakhs",
   },
   {
     id: "hmda-villas",
@@ -174,6 +206,16 @@ export const galleryImages = [
   { src: interior, tag: "Villas", caption: "Luxury Interiors" },
   { src: farmland, tag: "Farm Lands", caption: "Green Acreage" },
   { src: dreamValley3.url, tag: "Farm Lands", caption: "Dream Valley-3 — Nagulapally Village" },
+  { src: amangal1.url, tag: "Srisailam Highway", caption: "Amangal — Aerial Layout View" },
+  { src: amangal2.url, tag: "Srisailam Highway", caption: "Amangal — Plotted Development" },
+  { src: amangal3.url, tag: "Srisailam Highway", caption: "Amangal — Hillside Site View" },
+  { src: amangal4.url, tag: "Srisailam Highway", caption: "Amangal — Project Entrance" },
+  { src: amangal5.url, tag: "Srisailam Highway", caption: "Amangal — Site Office" },
+  { src: amangal6.url, tag: "Srisailam Highway", caption: "Amangal — Plot Boundary" },
+  { src: amangal7.url, tag: "Srisailam Highway", caption: "Amangal — Internal Road" },
+  { src: amangal8.url, tag: "Srisailam Highway", caption: "Amangal — Drainage & Markers" },
+  { src: amangalHouse.url, tag: "Srisailam Highway", caption: "Amangal — 1 BHK Home Design" },
+  { src: amangalPrice.url, tag: "Srisailam Highway", caption: "Amangal — 1 BHK at ₹31 Lakhs" },
   { src: lakeview, tag: "Gated Communities", caption: "Lake View Homes" },
   { src: highway, tag: "Location Photos", caption: "Highway Corridor" },
 ];
