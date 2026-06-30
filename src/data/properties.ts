@@ -173,6 +173,7 @@ export const galleryImages = [
   { src: villas, tag: "Villas", caption: "HMDA Villa Community" },
   { src: interior, tag: "Villas", caption: "Luxury Interiors" },
   { src: farmland, tag: "Farm Lands", caption: "Green Acreage" },
+  { src: dreamValley3.url, tag: "Farm Lands", caption: "Dream Valley-3 — Nagulapally Village" },
   { src: lakeview, tag: "Gated Communities", caption: "Lake View Homes" },
   { src: highway, tag: "Location Photos", caption: "Highway Corridor" },
 ];
