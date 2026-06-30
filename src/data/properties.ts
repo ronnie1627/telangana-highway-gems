@@ -43,7 +43,7 @@ export const properties: Property[] = [
     id: "warangal-kesaraguta-bibinagar",
     title: "HMDA Open Plots —keesaragutta, Bibinagar (Near AIIMS)",
     category: "Open Plots",
-    location: "Kesaraguta, Bibinagar • Warangal Highway • Near AIIMS Hospital",
+    location: "keesaragutta, Bibinagar • Warangal Highway • Near AIIMS Hospital",
     approvals: ["HMDA", "Loan Available"],
     features: ["Near AIIMS Hospital", "Warangal Highway Frontage", "Gated Layout", "Black-top Roads"],
     price: "Starting ₹ 13,999 / sq.yd",
