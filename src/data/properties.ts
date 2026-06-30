@@ -25,6 +25,16 @@ import iconic2 from "@/assets/iconic9-2.jpeg.asset.json";
 import iconic3 from "@/assets/iconic9-3.jpeg.asset.json";
 import iconic4 from "@/assets/iconic9-4.jpeg.asset.json";
 import dreamValley3 from "@/assets/dream-valley-3.jpg.asset.json";
+import amangal1 from "@/assets/amangal-1.jpeg.asset.json";
+import amangal2 from "@/assets/amangal-2.jpeg.asset.json";
+import amangal3 from "@/assets/amangal-3.jpeg.asset.json";
+import amangal4 from "@/assets/amangal-4.jpeg.asset.json";
+import amangal5 from "@/assets/amangal-5.jpeg.asset.json";
+import amangal6 from "@/assets/amangal-6.jpeg.asset.json";
+import amangal7 from "@/assets/amangal-7.jpeg.asset.json";
+import amangal8 from "@/assets/amangal-8.jpeg.asset.json";
+import amangalHouse from "@/assets/amangal-1bhk-house.jpeg.asset.json";
+import amangalPrice from "@/assets/amangal-1bhk-price.jpeg.asset.json";
 
 export type Property = {
   id: string;
