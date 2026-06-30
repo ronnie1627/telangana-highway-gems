@@ -20,6 +20,10 @@ import shadnagar2 from "@/assets/shadnagar-2.jpg.asset.json";
 import shadnagar3 from "@/assets/shadnagar-3.jpg.asset.json";
 import shadnagar4 from "@/assets/shadnagar-4.jpg.asset.json";
 import shadnagar5 from "@/assets/shadnagar-5.jpg.asset.json";
+import iconic1 from "@/assets/iconic9-1.jpeg.asset.json";
+import iconic2 from "@/assets/iconic9-2.jpeg.asset.json";
+import iconic3 from "@/assets/iconic9-3.jpeg.asset.json";
+import iconic4 from "@/assets/iconic9-4.jpeg.asset.json";
 
 export type Property = {
   id: string;
@@ -75,6 +79,17 @@ export const properties: Property[] = [
     features: ["HMDA Approved", "Shadnagar Town Location", "Highway Connectivity", "Gated Layout"],
     price: "₹ 25,299 / sq.yd",
     image: shadnagar1.url,
+    highlight: "HMDA Approved",
+  },
+  {
+    id: "iconic-9-burgula",
+    title: "Iconic-9 — Open Plots, Burgula (Shadnagar)",
+    category: "Open Plots",
+    location: "Burgula Village, Shadnagar",
+    approvals: ["HMDA", "Loan Available"],
+    features: ["HMDA Approved (LP No. 1681/HMDA/SWDL/2026)", "Flexible Payment Options", "Gated Layout", "Wide Black-top Roads"],
+    price: "₹ 16,299 / sq.yd",
+    image: iconic2.url,
     highlight: "HMDA Approved",
   },
   {
@@ -137,6 +152,10 @@ export const galleryImages = [
   { src: shadnagar3.url, tag: "Open Plots", caption: "Shadnagar — Landscaped Borders" },
   { src: shadnagar4.url, tag: "Open Plots", caption: "Shadnagar — Project Signage" },
   { src: shadnagar5.url, tag: "Open Plots", caption: "Shadnagar — Road Development" },
+  { src: iconic1.url, tag: "Open Plots", caption: "Iconic-9 Burgula — Project Brochure" },
+  { src: iconic2.url, tag: "Open Plots", caption: "Iconic-9 Burgula — Site Visit" },
+  { src: iconic3.url, tag: "Open Plots", caption: "Iconic-9 Burgula — Plotted Layout" },
+  { src: iconic4.url, tag: "Open Plots", caption: "Iconic-9 Burgula — Road Development" },
   { src: openplots, tag: "Open Plots", caption: "Mumbai Highway Layout" },
   { src: shadnagar, tag: "Open Plots", caption: "Shadnagar Township" },
   { src: villas, tag: "Villas", caption: "HMDA Villa Community" },
