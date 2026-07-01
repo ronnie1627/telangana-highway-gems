@@ -35,6 +35,16 @@ import amangal7 from "@/assets/amangal-7.jpeg.asset.json";
 import amangal8 from "@/assets/amangal-8.jpeg.asset.json";
 import amangalHouse from "@/assets/amangal-1bhk-house.jpeg.asset.json";
 import amangalPrice from "@/assets/amangal-1bhk-price.jpeg.asset.json";
+import bilva15 from "@/assets/bilva-15.jpeg.asset.json";
+import bilva16 from "@/assets/bilva-16.jpeg.asset.json";
+import bilva17 from "@/assets/bilva-17.jpeg.asset.json";
+import bilva18 from "@/assets/bilva-18.jpeg.asset.json";
+import bilva19 from "@/assets/bilva-19.jpeg.asset.json";
+import bilva19_1 from "@/assets/bilva-19_1.jpeg.asset.json";
+import bilva20 from "@/assets/bilva-20.jpeg.asset.json";
+import bilva21 from "@/assets/bilva-21.jpeg.asset.json";
+import bilvaHighlights from "@/assets/bilva-22.jpeg.asset.json";
+import bilvaPrice from "@/assets/bilva-23.jpeg.asset.json";
 
 export type Property = {
   id: string;
