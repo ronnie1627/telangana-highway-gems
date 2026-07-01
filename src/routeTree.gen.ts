@@ -9,19 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiSitemapDotxmlRouteImport } from './routes/api/sitemap[.]xml'
 
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PropertiesRoute = PropertiesRouteImport.update({
   id: '/properties',
   path: '/properties',
@@ -52,6 +47,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiSitemapDotxmlRoute = ApiSitemapDotxmlRouteImport.update({
+  id: '/api/sitemap.xml',
+  path: '/api/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -60,7 +60,7 @@ export interface FileRoutesByFullPath {
   '/gallery': typeof GalleryRoute
   '/investors': typeof InvestorsRoute
   '/properties': typeof PropertiesRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/api/sitemap.xml': typeof ApiSitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -69,7 +69,7 @@ export interface FileRoutesByTo {
   '/gallery': typeof GalleryRoute
   '/investors': typeof InvestorsRoute
   '/properties': typeof PropertiesRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/api/sitemap.xml': typeof ApiSitemapDotxmlRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -79,7 +79,7 @@ export interface FileRoutesById {
   '/gallery': typeof GalleryRoute
   '/investors': typeof InvestorsRoute
   '/properties': typeof PropertiesRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/api/sitemap.xml': typeof ApiSitemapDotxmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -90,7 +90,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/investors'
     | '/properties'
-    | '/sitemap.xml'
+    | '/api/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -99,7 +99,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/investors'
     | '/properties'
-    | '/sitemap.xml'
+    | '/api/sitemap.xml'
   id:
     | '__root__'
     | '/'
@@ -108,7 +108,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/investors'
     | '/properties'
-    | '/sitemap.xml'
+    | '/api/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -118,18 +118,11 @@ export interface RootRouteChildren {
   GalleryRoute: typeof GalleryRoute
   InvestorsRoute: typeof InvestorsRoute
   PropertiesRoute: typeof PropertiesRoute
-  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ApiSitemapDotxmlRoute: typeof ApiSitemapDotxmlRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/properties': {
       id: '/properties'
       path: '/properties'
@@ -172,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/sitemap.xml': {
+      id: '/api/sitemap.xml'
+      path: '/api/sitemap.xml'
+      fullPath: '/api/sitemap.xml'
+      preLoaderRoute: typeof ApiSitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -182,7 +182,7 @@ const rootRouteChildren: RootRouteChildren = {
   GalleryRoute: GalleryRoute,
   InvestorsRoute: InvestorsRoute,
   PropertiesRoute: PropertiesRoute,
-  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ApiSitemapDotxmlRoute: ApiSitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
