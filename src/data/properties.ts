@@ -35,6 +35,16 @@ import amangal7 from "@/assets/amangal-7.jpeg.asset.json";
 import amangal8 from "@/assets/amangal-8.jpeg.asset.json";
 import amangalHouse from "@/assets/amangal-1bhk-house.jpeg.asset.json";
 import amangalPrice from "@/assets/amangal-1bhk-price.jpeg.asset.json";
+import bilva15 from "@/assets/bilva-15.jpeg.asset.json";
+import bilva16 from "@/assets/bilva-16.jpeg.asset.json";
+import bilva17 from "@/assets/bilva-17.jpeg.asset.json";
+import bilva18 from "@/assets/bilva-18.jpeg.asset.json";
+import bilva19 from "@/assets/bilva-19.jpeg.asset.json";
+import bilva19_1 from "@/assets/bilva-19_1.jpeg.asset.json";
+import bilva20 from "@/assets/bilva-20.jpeg.asset.json";
+import bilva21 from "@/assets/bilva-21.jpeg.asset.json";
+import bilvaHighlights from "@/assets/bilva-22.jpeg.asset.json";
+import bilvaPrice from "@/assets/bilva-23.jpeg.asset.json";
 
 export type Property = {
   id: string;
@@ -158,6 +168,28 @@ export const properties: Property[] = [
     highlight: "Premium Farmlands",
   },
   {
+    id: "bilva-farms-dindi",
+    title: "Bilva Farms — Dindi (Srisailam Highway)",
+    category: "Farm Land",
+    location: "Dindi Village, Srisailam Highway",
+    approvals: ["Premium Farmlands", "Gated Community"],
+    features: ["Gated Community", "Club House", "Swimming Pool", "Central Restaurant", "Lush Green Parks", "30 & 40 ft. Roads", "Children Play Area", "20+ Fruit Plant Varieties"],
+    price: "₹ 3,399 / sq.yd",
+    image: bilva15.url,
+    highlight: "Farm Lands",
+  },
+  {
+    id: "bilva-farms-resort",
+    title: "Bilva Farms Resort Plots — Limited Offer",
+    category: "Farm Land",
+    location: "Dindi Village, Srisailam Highway",
+    approvals: ["Premium Resort Farmlands"],
+    features: ["Only Few Plots Left", "Resort-style Community", "Club House & Pool", "Fruit Orchards", "Party Lawns & Box Cricket", "Designer Street Lights"],
+    price: "₹ 2,699 / sq.yd*",
+    image: bilvaPrice.url,
+    highlight: "Only Few Left",
+  },
+  {
     id: "sagar-lakeview",
     title: "Lake View Gated Community — 2/3 BHK",
     category: "Gated Community",
@@ -216,6 +248,16 @@ export const galleryImages = [
   { src: amangal8.url, tag: "Srisailam Highway", caption: "Amangal — Drainage & Markers" },
   { src: amangalHouse.url, tag: "Srisailam Highway", caption: "Amangal — 1 BHK Home Design" },
   { src: amangalPrice.url, tag: "Srisailam Highway", caption: "Amangal — 1 BHK at ₹31 Lakhs" },
+  { src: bilva15.url, tag: "Srisailam Highway", caption: "Bilva Farms — Plotted Layout" },
+  { src: bilva16.url, tag: "Srisailam Highway", caption: "Bilva Farms — Aerial View" },
+  { src: bilva17.url, tag: "Srisailam Highway", caption: "Bilva Farms — Farm Plots" },
+  { src: bilva18.url, tag: "Srisailam Highway", caption: "Bilva Farms — Orchard View" },
+  { src: bilva19.url, tag: "Srisailam Highway", caption: "Bilva Farms — Site Panorama" },
+  { src: bilva19_1.url, tag: "Srisailam Highway", caption: "Bilva Farms — Site Infrastructure" },
+  { src: bilva20.url, tag: "Srisailam Highway", caption: "Bilva Farms — Highway Access" },
+  { src: bilva21.url, tag: "Srisailam Highway", caption: "Bilva Farms — Plot Demarcation" },
+  { src: bilvaHighlights.url, tag: "Farm Lands", caption: "Bilva Farms — Project Highlights" },
+  { src: bilvaPrice.url, tag: "Farm Lands", caption: "Bilva Farms — Price Card" },
   { src: lakeview, tag: "Gated Communities", caption: "Lake View Homes" },
   { src: highway, tag: "Location Photos", caption: "Highway Corridor" },
 ];
