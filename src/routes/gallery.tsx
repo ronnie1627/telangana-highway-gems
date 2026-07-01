@@ -44,6 +44,38 @@ function Gallery() {
     setOpenIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : prev));
   }, [openIndex]);
 
+  const handleDownload = useCallback(async () => {
+    if (!activeImg) return;
+    try {
+      const response = await fetch(activeImg.src);
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = activeImg.caption.replace(/\s+/g, "_") + ".jpg";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch {
+      window.open(activeImg.src, "_blank");
+    }
+  }, [activeImg]);
+
+  const handleShare = useCallback(async () => {
+    if (!activeImg) return;
+    const shareData = {
+      title: activeImg.caption,
+      text: `Check out this property: ${activeImg.caption}`,
+      url: window.location.href,
+    };
+    if (navigator.share) {
+      try { await navigator.share(shareData); } catch { /* user cancelled */ }
+    } else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(window.location.href);
+    }
+  }, [activeImg]);
+
   useEffect(() => {
     if (openIndex === null) return;
     const onKey = (e: KeyboardEvent) => {
