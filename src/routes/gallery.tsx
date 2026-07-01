@@ -3,7 +3,7 @@ import { useMemo, useState, useCallback, useEffect } from "react";
 import { galleryImages } from "@/data/properties";
 import { SectionHeader } from "@/components/site/SectionHeader";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
+import { ChevronLeft, ChevronRight, ZoomIn, Download, Share2 } from "lucide-react";
 
 const tags = ["All", "Warangal Highway", "Srisailam Highway", "Open Plots", "Villas", "Farm Lands", "Gated Communities", "Location Photos"] as const;
 
@@ -43,6 +43,38 @@ function Gallery() {
     if (openIndex === null) return;
     setOpenIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : prev));
   }, [openIndex]);
+
+  const handleDownload = useCallback(async () => {
+    if (!activeImg) return;
+    try {
+      const response = await fetch(activeImg.src);
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = activeImg.caption.replace(/\s+/g, "_") + ".jpg";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch {
+      window.open(activeImg.src, "_blank");
+    }
+  }, [activeImg]);
+
+  const handleShare = useCallback(async () => {
+    if (!activeImg) return;
+    const shareData = {
+      title: activeImg.caption,
+      text: `Check out this property: ${activeImg.caption}`,
+      url: window.location.href,
+    };
+    if (navigator.share) {
+      try { await navigator.share(shareData); } catch { /* user cancelled */ }
+    } else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(window.location.href);
+    }
+  }, [activeImg]);
 
   useEffect(() => {
     if (openIndex === null) return;
@@ -156,6 +188,24 @@ function Gallery() {
                 <div className="mt-1 font-display text-lg text-white">{activeImg.caption}</div>
                 <div className="mt-2 text-xs text-white/60">
                   {openIndex !== null ? openIndex + 1 : 0} / {items.length}
+                </div>
+                <div className="mt-4 flex items-center justify-center gap-3">
+                  <button
+                    onClick={handleDownload}
+                    className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-white backdrop-blur transition hover:bg-white/20"
+                    aria-label="Download image"
+                  >
+                    <Download size={16} />
+                    Download
+                  </button>
+                  <button
+                    onClick={handleShare}
+                    className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-white backdrop-blur transition hover:bg-white/20"
+                    aria-label="Share image"
+                  >
+                    <Share2 size={16} />
+                    Share
+                  </button>
                 </div>
               </div>
             </div>
