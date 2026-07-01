@@ -189,6 +189,24 @@ function Gallery() {
                 <div className="mt-2 text-xs text-white/60">
                   {openIndex !== null ? openIndex + 1 : 0} / {items.length}
                 </div>
+                <div className="mt-4 flex items-center justify-center gap-3">
+                  <button
+                    onClick={handleDownload}
+                    className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-white backdrop-blur transition hover:bg-white/20"
+                    aria-label="Download image"
+                  >
+                    <Download size={16} />
+                    Download
+                  </button>
+                  <button
+                    onClick={handleShare}
+                    className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-white backdrop-blur transition hover:bg-white/20"
+                    aria-label="Share image"
+                  >
+                    <Share2 size={16} />
+                    Share
+                  </button>
+                </div>
               </div>
             </div>
           )}
