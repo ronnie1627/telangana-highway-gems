@@ -3,7 +3,7 @@ import { useMemo, useState, useCallback, useEffect } from "react";
 import { galleryImages } from "@/data/properties";
 import { SectionHeader } from "@/components/site/SectionHeader";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
+import { ChevronLeft, ChevronRight, ZoomIn, Download, Share2 } from "lucide-react";
 
 const tags = ["All", "Warangal Highway", "Srisailam Highway", "Open Plots", "Villas", "Farm Lands", "Gated Communities", "Location Photos"] as const;
 
