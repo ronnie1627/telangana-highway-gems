@@ -1,10 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { properties } from "@/data/properties";
-import { PropertyCard } from "@/components/site/PropertyCard";
+import { useQuery } from "@tanstack/react-query";
+import { DBPropertyCard } from "@/components/site/DBPropertyCard";
 import { SectionHeader } from "@/components/site/SectionHeader";
-
-const categories = ["All", "Open Plots", "Villas & Plots", "Farm Land", "Gated Community"] as const;
+import { fetchAvailableProperties } from "@/lib/property-types";
 
 export const Route = createFileRoute("/properties")({
   head: () => ({
@@ -21,11 +20,35 @@ export const Route = createFileRoute("/properties")({
 });
 
 function PropertiesPage() {
-  const [filter, setFilter] = useState<(typeof categories)[number]>("All");
-  const list = useMemo(
-    () => (filter === "All" ? properties : properties.filter((p) => p.category === filter)),
-    [filter],
-  );
+  const { data: all = [], isLoading } = useQuery({
+    queryKey: ["properties", "available"],
+    queryFn: fetchAvailableProperties,
+  });
+
+  const [filter, setFilter] = useState<string>("All");
+  const [city, setCity] = useState<string>("All");
+  const [q, setQ] = useState("");
+  const [maxPrice, setMaxPrice] = useState<string>("");
+
+  const categories = useMemo(() => {
+    const s = new Set<string>(all.map((p) => p.property_type).filter(Boolean));
+    return ["All", ...Array.from(s)];
+  }, [all]);
+
+  const cities = useMemo(() => {
+    const s = new Set<string>(all.map((p) => p.city ?? "").filter(Boolean));
+    return ["All", ...Array.from(s)];
+  }, [all]);
+
+  const list = useMemo(() => {
+    return all.filter((p) => {
+      if (filter !== "All" && p.property_type !== filter) return false;
+      if (city !== "All" && p.city !== city) return false;
+      if (q && !`${p.title} ${p.location_label ?? ""} ${p.city ?? ""}`.toLowerCase().includes(q.toLowerCase())) return false;
+      if (maxPrice && p.price != null && p.price > Number(maxPrice)) return false;
+      return true;
+    });
+  }, [all, filter, city, q, maxPrice]);
 
   return (
     <>
@@ -53,15 +76,46 @@ function PropertiesPage() {
               </button>
             ))}
           </div>
+
+          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            <input
+              placeholder="Search title, city or location"
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              className="rounded-sm border border-border bg-input/30 px-4 py-3 text-sm outline-none focus:border-gold"
+            />
+            <select
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              className="rounded-sm border border-border bg-input/30 px-4 py-3 text-sm outline-none focus:border-gold"
+            >
+              {cities.map((c) => (
+                <option key={c} value={c}>{c === "All" ? "All Cities" : c}</option>
+              ))}
+            </select>
+            <input
+              type="number"
+              placeholder="Max price (₹)"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(e.target.value)}
+              className="rounded-sm border border-border bg-input/30 px-4 py-3 text-sm outline-none focus:border-gold"
+            />
+          </div>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-6 pb-24 lg:px-10">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {list.map((p) => (
-            <PropertyCard key={p.id} p={p} />
-          ))}
-        </div>
+        {isLoading ? (
+          <p className="text-center text-sm text-muted-foreground">Loading properties…</p>
+        ) : list.length === 0 ? (
+          <p className="text-center text-sm text-muted-foreground">No properties match your filters.</p>
+        ) : (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {list.map((p) => (
+              <DBPropertyCard key={p.id} p={p} />
+            ))}
+          </div>
+        )}
       </section>
     </>
   );

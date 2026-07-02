@@ -3,6 +3,10 @@ import { ArrowRight, BadgeCheck, Compass, FileCheck2, Sparkles, Star } from "luc
 import hero from "@/assets/hero-estate.jpg";
 import { properties, testimonials } from "@/data/properties";
 import { PropertyCard } from "@/components/site/PropertyCard";
+import { DBPropertyCard } from "@/components/site/DBPropertyCard";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import type { DBProperty } from "@/lib/property-types";
 import { SectionHeader } from "@/components/site/SectionHeader";
 import { Stat } from "@/components/site/Stat";
 import { TrustBadges } from "@/components/site/TrustBadges";
@@ -23,12 +27,11 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const featured = properties.slice(0, 3);
   return (
     <>
       <Hero />
       <FeaturedBand />
-      <Featured featured={featured} />
+      <Featured />
       <HowItWorks />
       <Corridors />
       <Trust />
@@ -125,7 +128,21 @@ function FeaturedBand() {
   );
 }
 
-function Featured({ featured }: { featured: typeof properties }) {
+function Featured() {
+  const { data: featured = [], isLoading } = useQuery({
+    queryKey: ["properties", "featured"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("properties")
+        .select("*")
+        .eq("status", "Available")
+        .eq("featured", true)
+        .order("created_at", { ascending: false })
+        .limit(6);
+      if (error) throw error;
+      return (data ?? []) as DBProperty[];
+    },
+  });
   return (
     <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
       <div className="flex flex-col items-end justify-between gap-6 sm:flex-row">
@@ -143,9 +160,13 @@ function Featured({ featured }: { featured: typeof properties }) {
         </Link>
       </div>
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {featured.map((p) => (
-          <PropertyCard key={p.id} p={p} />
-        ))}
+        {isLoading ? (
+          <p className="col-span-full text-center text-sm text-muted-foreground">Loading featured properties…</p>
+        ) : featured.length > 0 ? (
+          featured.slice(0, 3).map((p) => <DBPropertyCard key={p.id} p={p} />)
+        ) : (
+          properties.slice(0, 3).map((p) => <PropertyCard key={p.id} p={p} />)
+        )}
       </div>
     </section>
   );

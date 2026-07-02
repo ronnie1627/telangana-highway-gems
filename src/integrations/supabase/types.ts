@@ -23,7 +23,10 @@ export type Database = {
           message: string | null
           name: string
           phone: string
+          property_id: string | null
+          property_title: string | null
           requirement: string | null
+          status: string
         }
         Insert: {
           budget?: string | null
@@ -33,7 +36,10 @@ export type Database = {
           message?: string | null
           name: string
           phone: string
+          property_id?: string | null
+          property_title?: string | null
           requirement?: string | null
+          status?: string
         }
         Update: {
           budget?: string | null
@@ -43,7 +49,155 @@ export type Database = {
           message?: string | null
           name?: string
           phone?: string
+          property_id?: string | null
+          property_title?: string | null
           requirement?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "inquiries_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      properties: {
+        Row: {
+          address: string | null
+          amenities: string[]
+          approvals: string[]
+          area_sqft: number | null
+          city: string | null
+          cover_image: string | null
+          created_at: string
+          description: string | null
+          featured: boolean
+          google_maps_url: string | null
+          highlight: string | null
+          id: string
+          latitude: number | null
+          location_label: string | null
+          longitude: number | null
+          pincode: string | null
+          price: number | null
+          price_display: string | null
+          property_type: string
+          slug: string | null
+          state: string | null
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          amenities?: string[]
+          approvals?: string[]
+          area_sqft?: number | null
+          city?: string | null
+          cover_image?: string | null
+          created_at?: string
+          description?: string | null
+          featured?: boolean
+          google_maps_url?: string | null
+          highlight?: string | null
+          id?: string
+          latitude?: number | null
+          location_label?: string | null
+          longitude?: number | null
+          pincode?: string | null
+          price?: number | null
+          price_display?: string | null
+          property_type?: string
+          slug?: string | null
+          state?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          amenities?: string[]
+          approvals?: string[]
+          area_sqft?: number | null
+          city?: string | null
+          cover_image?: string | null
+          created_at?: string
+          description?: string | null
+          featured?: boolean
+          google_maps_url?: string | null
+          highlight?: string | null
+          id?: string
+          latitude?: number | null
+          location_label?: string | null
+          longitude?: number | null
+          pincode?: string | null
+          price?: number | null
+          price_display?: string | null
+          property_type?: string
+          slug?: string | null
+          state?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      property_images: {
+        Row: {
+          caption: string | null
+          created_at: string
+          id: string
+          property_id: string
+          sort_order: number
+          url: string
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          property_id: string
+          sort_order?: number
+          url: string
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          property_id?: string
+          sort_order?: number
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "property_images_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
         }
         Relationships: []
       }
@@ -52,10 +206,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -182,6 +342,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin"],
+    },
   },
 } as const
