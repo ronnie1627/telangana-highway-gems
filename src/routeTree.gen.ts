@@ -15,6 +15,7 @@ import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PropertiesSlugRouteImport } from './routes/properties.$slug'
 import { Route as ApiSitemapDotxmlRouteImport } from './routes/api/sitemap[.]xml'
 
 const PropertiesRoute = PropertiesRouteImport.update({
@@ -47,6 +48,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PropertiesSlugRoute = PropertiesSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => PropertiesRoute,
+} as any)
 const ApiSitemapDotxmlRoute = ApiSitemapDotxmlRouteImport.update({
   id: '/api/sitemap.xml',
   path: '/api/sitemap.xml',
@@ -59,8 +65,9 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/investors': typeof InvestorsRoute
-  '/properties': typeof PropertiesRoute
+  '/properties': typeof PropertiesRouteWithChildren
   '/api/sitemap.xml': typeof ApiSitemapDotxmlRoute
+  '/properties/$slug': typeof PropertiesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -68,8 +75,9 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/investors': typeof InvestorsRoute
-  '/properties': typeof PropertiesRoute
+  '/properties': typeof PropertiesRouteWithChildren
   '/api/sitemap.xml': typeof ApiSitemapDotxmlRoute
+  '/properties/$slug': typeof PropertiesSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -78,8 +86,9 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/investors': typeof InvestorsRoute
-  '/properties': typeof PropertiesRoute
+  '/properties': typeof PropertiesRouteWithChildren
   '/api/sitemap.xml': typeof ApiSitemapDotxmlRoute
+  '/properties/$slug': typeof PropertiesSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
     | '/investors'
     | '/properties'
     | '/api/sitemap.xml'
+    | '/properties/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +110,7 @@ export interface FileRouteTypes {
     | '/investors'
     | '/properties'
     | '/api/sitemap.xml'
+    | '/properties/$slug'
   id:
     | '__root__'
     | '/'
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
     | '/investors'
     | '/properties'
     | '/api/sitemap.xml'
+    | '/properties/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -117,7 +129,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   GalleryRoute: typeof GalleryRoute
   InvestorsRoute: typeof InvestorsRoute
-  PropertiesRoute: typeof PropertiesRoute
+  PropertiesRoute: typeof PropertiesRouteWithChildren
   ApiSitemapDotxmlRoute: typeof ApiSitemapDotxmlRoute
 }
 
@@ -165,6 +177,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/properties/$slug': {
+      id: '/properties/$slug'
+      path: '/$slug'
+      fullPath: '/properties/$slug'
+      preLoaderRoute: typeof PropertiesSlugRouteImport
+      parentRoute: typeof PropertiesRoute
+    }
     '/api/sitemap.xml': {
       id: '/api/sitemap.xml'
       path: '/api/sitemap.xml'
@@ -175,13 +194,25 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface PropertiesRouteChildren {
+  PropertiesSlugRoute: typeof PropertiesSlugRoute
+}
+
+const PropertiesRouteChildren: PropertiesRouteChildren = {
+  PropertiesSlugRoute: PropertiesSlugRoute,
+}
+
+const PropertiesRouteWithChildren = PropertiesRoute._addFileChildren(
+  PropertiesRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   GalleryRoute: GalleryRoute,
   InvestorsRoute: InvestorsRoute,
-  PropertiesRoute: PropertiesRoute,
+  PropertiesRoute: PropertiesRouteWithChildren,
   ApiSitemapDotxmlRoute: ApiSitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
