@@ -28,20 +28,23 @@ function AdminLogin({ notAdmin }: { notAdmin: boolean }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [mode, setMode] = useState<"signin" | "signup">("signin");
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = mode === "signin"
+      ? await supabase.auth.signInWithPassword({ email, password })
+      : await supabase.auth.signUp({ email, password });
     setSubmitting(false);
     if (error) toast.error(error.message);
-    else toast.success("Signed in");
+    else toast.success(mode === "signin" ? "Signed in" : "Account created — you can now sign in");
   };
 
   return (
     <div className="pt-40 pb-24">
       <div className="mx-auto max-w-md rounded-sm border border-border bg-card p-8">
-        <h1 className="font-display text-3xl text-foreground">Admin Login</h1>
+        <h1 className="font-display text-3xl text-foreground">{mode === "signin" ? "Admin Login" : "Create Admin Account"}</h1>
         <p className="mt-2 text-sm text-muted-foreground">Restricted area. Authorised staff only.</p>
         {notAdmin && (
           <p className="mt-3 rounded-sm border border-destructive/40 bg-destructive/10 p-3 text-xs text-destructive">
@@ -61,7 +64,11 @@ function AdminLogin({ notAdmin }: { notAdmin: boolean }) {
           </div>
           <button type="submit" disabled={submitting}
             className="w-full rounded-sm bg-gradient-gold px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.2em] text-primary-foreground shadow-gold disabled:opacity-60">
-            {submitting ? "Signing in…" : "Sign In"}
+            {submitting ? "Please wait…" : mode === "signin" ? "Sign In" : "Create Account"}
+          </button>
+          <button type="button" onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
+            className="w-full text-center text-xs text-muted-foreground hover:text-gold">
+            {mode === "signin" ? "First time? Create the admin account" : "Already have an account? Sign in"}
           </button>
         </form>
       </div>
