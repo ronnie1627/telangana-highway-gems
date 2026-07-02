@@ -3,7 +3,15 @@ import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
 import { submitInquiry } from "@/lib/inquiries.functions";
 
-export function InquiryForm({ compact = false }: { compact?: boolean }) {
+export function InquiryForm({
+  compact = false,
+  propertyId,
+  propertyTitle,
+}: {
+  compact?: boolean;
+  propertyId?: string;
+  propertyTitle?: string;
+}) {
   const [submitting, setSubmitting] = useState(false);
   const submit = useServerFn(submitInquiry);
 
@@ -21,6 +29,8 @@ export function InquiryForm({ compact = false }: { compact?: boolean }) {
           budget: String(fd.get("budget") || ""),
           requirement: String(fd.get("requirement") || ""),
           message: String(fd.get("message") || ""),
+          propertyId,
+          propertyTitle,
         },
       });
       form.reset();
