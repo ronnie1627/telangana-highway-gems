@@ -1,10 +1,3 @@
-import openplots from "@/assets/prop-openplots.jpg";
-import villas from "@/assets/prop-villas.jpg";
-import farmland from "@/assets/prop-farmland.jpg";
-import lakeview from "@/assets/prop-lakeview.jpg";
-import shadnagar from "@/assets/prop-shadnagar.jpg";
-import highway from "@/assets/prop-highway.jpg";
-import interior from "@/assets/prop-interior.jpg";
 import warangal1 from "@/assets/warangal-kesaraguta-1.jpg.asset.json";
 import warangal2 from "@/assets/warangal-kesaraguta-2.jpg.asset.json";
 import warangal3 from "@/assets/warangal-kesaraguta-3.jpg.asset.json";
@@ -45,6 +38,14 @@ import bilva20 from "@/assets/bilva-20.jpeg.asset.json";
 import bilva21 from "@/assets/bilva-21.jpeg.asset.json";
 import bilvaHighlights from "@/assets/bilva-22.jpeg.asset.json";
 import bilvaPrice from "@/assets/bilva-23.jpeg.asset.json";
+
+const openplots = "/api/property-images/properties/prop-openplots.jpg";
+const villas = "/api/property-images/properties/prop-villas.jpg";
+const farmland = "/api/property-images/properties/prop-farmland.jpg";
+const lakeview = "/api/property-images/properties/prop-lakeview.jpg";
+const shadnagar = "/api/property-images/properties/prop-shadnagar.jpg";
+const highway = "/api/property-images/properties/prop-highway.jpg";
+const interior = "/api/property-images/properties/prop-interior.jpg";
 
 export type Property = {
   id: string;

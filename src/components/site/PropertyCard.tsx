@@ -1,13 +1,15 @@
 import { MapPin, MessageCircle } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import type { Property } from "@/data/properties";
+import { resolveAssetUrl } from "@/lib/asset-url";
 
 export function PropertyCard({ p }: { p: Property }) {
+  const cover = resolveAssetUrl(p.image);
   return (
     <article className="group relative overflow-hidden rounded-sm border border-border bg-card transition-all duration-500 hover:-translate-y-1 hover:border-gold hover:shadow-luxe">
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
-          src={p.image}
+          src={cover}
           alt={p.title}
           loading="lazy"
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
