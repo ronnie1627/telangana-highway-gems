@@ -18,6 +18,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PropertiesSlugRouteImport } from './routes/properties.$slug'
 import { Route as ApiSitemapDotxmlRouteImport } from './routes/api/sitemap[.]xml'
+import { Route as ApiPropertyImagesSplatRouteImport } from './routes/api/property-images/$'
 
 const PropertiesRoute = PropertiesRouteImport.update({
   id: '/properties',
@@ -64,6 +65,11 @@ const ApiSitemapDotxmlRoute = ApiSitemapDotxmlRouteImport.update({
   path: '/api/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPropertyImagesSplatRoute = ApiPropertyImagesSplatRouteImport.update({
+  id: '/api/property-images/$',
+  path: '/api/property-images/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/properties': typeof PropertiesRouteWithChildren
   '/api/sitemap.xml': typeof ApiSitemapDotxmlRoute
   '/properties/$slug': typeof PropertiesSlugRoute
+  '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByTo {
   '/properties': typeof PropertiesRouteWithChildren
   '/api/sitemap.xml': typeof ApiSitemapDotxmlRoute
   '/properties/$slug': typeof PropertiesSlugRoute
+  '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -98,6 +106,7 @@ export interface FileRoutesById {
   '/properties': typeof PropertiesRouteWithChildren
   '/api/sitemap.xml': typeof ApiSitemapDotxmlRoute
   '/properties/$slug': typeof PropertiesSlugRoute
+  '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -111,6 +120,7 @@ export interface FileRouteTypes {
     | '/properties'
     | '/api/sitemap.xml'
     | '/properties/$slug'
+    | '/api/property-images/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -122,6 +132,7 @@ export interface FileRouteTypes {
     | '/properties'
     | '/api/sitemap.xml'
     | '/properties/$slug'
+    | '/api/property-images/$'
   id:
     | '__root__'
     | '/'
@@ -133,6 +144,7 @@ export interface FileRouteTypes {
     | '/properties'
     | '/api/sitemap.xml'
     | '/properties/$slug'
+    | '/api/property-images/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -144,6 +156,7 @@ export interface RootRouteChildren {
   InvestorsRoute: typeof InvestorsRoute
   PropertiesRoute: typeof PropertiesRouteWithChildren
   ApiSitemapDotxmlRoute: typeof ApiSitemapDotxmlRoute
+  ApiPropertyImagesSplatRoute: typeof ApiPropertyImagesSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -211,6 +224,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/property-images/$': {
+      id: '/api/property-images/$'
+      path: '/api/property-images/$'
+      fullPath: '/api/property-images/$'
+      preLoaderRoute: typeof ApiPropertyImagesSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -235,6 +255,7 @@ const rootRouteChildren: RootRouteChildren = {
   InvestorsRoute: InvestorsRoute,
   PropertiesRoute: PropertiesRouteWithChildren,
   ApiSitemapDotxmlRoute: ApiSitemapDotxmlRoute,
+  ApiPropertyImagesSplatRoute: ApiPropertyImagesSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
