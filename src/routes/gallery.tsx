@@ -4,6 +4,7 @@ import { galleryImages } from "@/data/properties";
 import { SectionHeader } from "@/components/site/SectionHeader";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ChevronLeft, ChevronRight, ZoomIn, Download, Share2 } from "lucide-react";
+import { resolveAssetUrl } from "@/lib/asset-url";
 
 const tags = ["All", "Warangal Highway", "Srisailam Highway", "Open Plots", "Villas", "Farm Lands", "Gated Communities", "Location Photos"] as const;
 
@@ -47,7 +48,8 @@ function Gallery() {
   const handleDownload = useCallback(async () => {
     if (!activeImg) return;
     try {
-      const response = await fetch(activeImg.src);
+      const imageUrl = resolveAssetUrl(activeImg.src);
+      const response = await fetch(imageUrl);
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -58,7 +60,7 @@ function Gallery() {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
     } catch {
-      window.open(activeImg.src, "_blank");
+      window.open(resolveAssetUrl(activeImg.src), "_blank");
     }
   }, [activeImg]);
 
@@ -124,7 +126,7 @@ function Gallery() {
               className="group relative aspect-square cursor-pointer overflow-hidden rounded-sm border border-border"
             >
               <img
-                src={img.src}
+                src={resolveAssetUrl(img.src)}
                 alt={img.caption}
                 loading="lazy"
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -171,7 +173,7 @@ function Gallery() {
                 <ChevronLeft size={28} />
               </button>
               <img
-                src={activeImg.src}
+                src={resolveAssetUrl(activeImg.src)}
                 alt={activeImg.caption}
                 className="max-h-full max-w-full rounded-sm object-contain shadow-2xl"
               />
