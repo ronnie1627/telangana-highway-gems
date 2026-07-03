@@ -323,16 +323,21 @@ function PropertyEditor({ property, onClose, onSaved }: { property: DBProperty |
   const uploadImages = async (files: FileList | null) => {
     if (!files || !property) return;
     setUploading(true);
-    for (const file of Array.from(files)) {
-      const path = `${property.id}/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
+    const currentLastOrder = images.at(-1)?.sort_order ?? 0;
+    let firstUploadedPath = "";
+    for (const [index, file] of Array.from(files).entries()) {
+      const path = `properties/${property.id}/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
       const { error: upErr } = await supabase.storage.from("property-images").upload(path, file);
       if (upErr) { toast.error(upErr.message); continue; }
-      const { data: pub } = supabase.storage.from("property-images").getPublicUrl(path);
-      const nextOrder = (images.at(-1)?.sort_order ?? 0) + 1;
+      if (!firstUploadedPath) firstUploadedPath = path;
       const { error: insErr } = await supabase.from("property_images").insert({
-        property_id: property.id, url: pub.publicUrl, sort_order: nextOrder,
+        property_id: property.id, url: path, sort_order: currentLastOrder + index + 1,
       });
       if (insErr) toast.error(insErr.message);
+    }
+    if (firstUploadedPath && !form.cover_image) {
+      const { error } = await supabase.from("properties").update({ cover_image: firstUploadedPath }).eq("id", property.id);
+      if (!error) set("cover_image", firstUploadedPath);
     }
     const { data } = await supabase.from("property_images").select("*").eq("property_id", property.id).order("sort_order");
     setImages((data as DBPropertyImage[]) ?? []);
