@@ -11,6 +11,7 @@ import { SectionHeader } from "@/components/site/SectionHeader";
 import { Stat } from "@/components/site/Stat";
 import { TrustBadges } from "@/components/site/TrustBadges";
 import { InquiryForm } from "@/components/site/InquiryForm";
+import { heroQuery, ctaQuery, HERO_DEFAULTS, CTA_DEFAULTS } from "@/lib/site-settings";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -42,6 +43,7 @@ function Index() {
 }
 
 function Hero() {
+  const { data: h = HERO_DEFAULTS } = useQuery(heroQuery);
   return (
     <section className="relative isolate min-h-[100svh] overflow-hidden">
       <img
@@ -59,20 +61,18 @@ function Hero() {
           <div className="inline-flex items-center gap-3 rounded-sm border border-gold/40 bg-card/40 px-4 py-2 backdrop-blur">
             <Sparkles size={14} className="text-gold" />
             <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold-soft">
-              Open Plots At Low Budget · Limited Inventory
+              {h.eyebrow}
             </span>
           </div>
 
           <h1 className="mt-8 font-display text-5xl leading-[1.05] text-foreground sm:text-6xl lg:text-7xl">
-            Affordable Open Plots, Villas &{" "}
-            <span className="text-gradient-gold">Farm Lands</span>{" "}
-            across Telangana's prime highways.
+            {h.title_lead}{" "}
+            <span className="text-gradient-gold">{h.title_highlight}</span>{" "}
+            {h.title_trail}
           </h1>
 
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-            Invest today in Telangana's fastest-growing real estate corridors. HMDA, DTCP, LRS,
-            Farms and agricultural lands approved properties across Hyderabad & Telangana with bank
-            loan support and verified documentation.&nbsp;
+            {h.subtitle}
           </p>
 
           <div className="mt-10 flex flex-wrap gap-3">
@@ -97,9 +97,9 @@ function Hero() {
           </div>
 
           <div className="mt-14 grid max-w-2xl grid-cols-3 gap-6 border-t border-border/60 pt-8">
-            <Stat value="1200+" label="Plots Sold" />
-            <Stat value="70+" label="Locations Covered" />
-            <Stat value="100%" label="Verified Title" />
+            <Stat value={h.stat1_value} label={h.stat1_label} />
+            <Stat value={h.stat2_value} label={h.stat2_label} />
+            <Stat value={h.stat3_value} label={h.stat3_label} />
           </div>
         </div>
       </div>
@@ -271,17 +271,17 @@ function Testimonials() {
 }
 
 function CtaBlock() {
+  const { data: c = CTA_DEFAULTS } = useQuery(ctaQuery);
   return (
     <section className="mx-auto max-w-7xl px-6 pb-24 lg:px-10">
       <div className="grid gap-10 rounded-sm border border-gold/40 bg-card p-10 shadow-luxe lg:grid-cols-2 lg:p-16">
         <div>
-          <div className="text-[11px] uppercase tracking-[0.3em] text-gold">Talk To Us</div>
+          <div className="text-[11px] uppercase tracking-[0.3em] text-gold">{c.eyebrow}</div>
           <h2 className="mt-4 font-display text-4xl leading-tight text-foreground sm:text-5xl">
-            Tell us what you're looking for. We'll find the right property.
+            {c.title}
           </h2>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-            Share your requirement and one of our advisors will reach out within 24 hours with shortlisted
-            options, transparent pricing and site visit availability.
+            {c.subtitle}
           </p>
           <div className="mt-8 grid grid-cols-2 gap-6">
             <Stat value="24h" label="Response Time" />
