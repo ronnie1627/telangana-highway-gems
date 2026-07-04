@@ -59,9 +59,9 @@ export const ctaQuery = queryOptions({
   staleTime: 30_000,
 });
 
-export async function saveSetting(key: string, value: Record<string, unknown>) {
+export async function saveSetting(key: string, value: Record<string, string>) {
   const { error } = await supabase
     .from("site_settings")
-    .upsert({ key, value }, { onConflict: "key" });
+    .upsert({ key, value: value as unknown as never }, { onConflict: "key" });
   if (error) throw error;
 }
