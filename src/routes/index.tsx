@@ -135,7 +135,7 @@ function Featured() {
       const { data, error } = await supabase
         .from("properties")
         .select("*")
-        .eq("status", "Available")
+        .in("status", ["Available", "Coming Soon"])
         .eq("featured", true)
         .order("created_at", { ascending: false })
         .limit(6);
