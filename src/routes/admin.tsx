@@ -517,3 +517,80 @@ function InquiriesTab() {
     </div>
   );
 }
+
+function HomepageTab() {
+  const qc = useQueryClient();
+  const { data: hero } = useQuery(heroQuery);
+  const { data: cta } = useQuery(ctaQuery);
+  const [h, setH] = useState<HeroSettings>(hero ?? HERO_DEFAULTS);
+  const [c, setC] = useState<CtaSettings>(cta ?? CTA_DEFAULTS);
+  const [savingHero, setSavingHero] = useState(false);
+  const [savingCta, setSavingCta] = useState(false);
+
+  useEffect(() => { if (hero) setH(hero); }, [hero]);
+  useEffect(() => { if (cta) setC(cta); }, [cta]);
+
+  const saveHero = async () => {
+    setSavingHero(true);
+    try {
+      await saveSetting("hero", h);
+      await qc.invalidateQueries({ queryKey: ["site_settings", "hero"] });
+      toast.success("Hero section updated");
+    } catch (e: any) { toast.error(e.message ?? "Save failed"); }
+    setSavingHero(false);
+  };
+  const saveCta = async () => {
+    setSavingCta(true);
+    try {
+      await saveSetting("cta", c);
+      await qc.invalidateQueries({ queryKey: ["site_settings", "cta"] });
+      toast.success("Call-to-action updated");
+    } catch (e: any) { toast.error(e.message ?? "Save failed"); }
+    setSavingCta(false);
+  };
+
+  const setH_ = <K extends keyof HeroSettings>(k: K, v: HeroSettings[K]) => setH((s) => ({ ...s, [k]: v }));
+  const setC_ = <K extends keyof CtaSettings>(k: K, v: CtaSettings[K]) => setC((s) => ({ ...s, [k]: v }));
+
+  return (
+    <div className="space-y-10">
+      <section className="rounded-sm border border-border bg-card p-6">
+        <div className="flex items-center justify-between">
+          <h2 className="font-display text-2xl">Hero Section</h2>
+          <button onClick={saveHero} disabled={savingHero}
+            className="rounded-sm bg-gradient-gold px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground shadow-gold disabled:opacity-60">
+            {savingHero ? "Saving…" : "Save Hero"}
+          </button>
+        </div>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <Field label="Eyebrow" span2><input value={h.eyebrow} onChange={(e) => setH_("eyebrow", e.target.value)} className={inputCls} /></Field>
+          <Field label="Title — lead"><input value={h.title_lead} onChange={(e) => setH_("title_lead", e.target.value)} className={inputCls} /></Field>
+          <Field label="Title — highlight (gold)"><input value={h.title_highlight} onChange={(e) => setH_("title_highlight", e.target.value)} className={inputCls} /></Field>
+          <Field label="Title — trailing text" span2><input value={h.title_trail} onChange={(e) => setH_("title_trail", e.target.value)} className={inputCls} /></Field>
+          <Field label="Subtitle" span2><textarea rows={4} value={h.subtitle} onChange={(e) => setH_("subtitle", e.target.value)} className={inputCls} /></Field>
+          <Field label="Stat 1 — value"><input value={h.stat1_value} onChange={(e) => setH_("stat1_value", e.target.value)} className={inputCls} /></Field>
+          <Field label="Stat 1 — label"><input value={h.stat1_label} onChange={(e) => setH_("stat1_label", e.target.value)} className={inputCls} /></Field>
+          <Field label="Stat 2 — value"><input value={h.stat2_value} onChange={(e) => setH_("stat2_value", e.target.value)} className={inputCls} /></Field>
+          <Field label="Stat 2 — label"><input value={h.stat2_label} onChange={(e) => setH_("stat2_label", e.target.value)} className={inputCls} /></Field>
+          <Field label="Stat 3 — value"><input value={h.stat3_value} onChange={(e) => setH_("stat3_value", e.target.value)} className={inputCls} /></Field>
+          <Field label="Stat 3 — label"><input value={h.stat3_label} onChange={(e) => setH_("stat3_label", e.target.value)} className={inputCls} /></Field>
+        </div>
+      </section>
+
+      <section className="rounded-sm border border-border bg-card p-6">
+        <div className="flex items-center justify-between">
+          <h2 className="font-display text-2xl">Call-to-Action Section</h2>
+          <button onClick={saveCta} disabled={savingCta}
+            className="rounded-sm bg-gradient-gold px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground shadow-gold disabled:opacity-60">
+            {savingCta ? "Saving…" : "Save CTA"}
+          </button>
+        </div>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <Field label="Eyebrow" span2><input value={c.eyebrow} onChange={(e) => setC_("eyebrow", e.target.value)} className={inputCls} /></Field>
+          <Field label="Title" span2><input value={c.title} onChange={(e) => setC_("title", e.target.value)} className={inputCls} /></Field>
+          <Field label="Subtitle" span2><textarea rows={3} value={c.subtitle} onChange={(e) => setC_("subtitle", e.target.value)} className={inputCls} /></Field>
+        </div>
+      </section>
+    </div>
+  );
+}
