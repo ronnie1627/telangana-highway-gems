@@ -161,7 +161,7 @@ function PropertiesTab() {
           className="flex-1 rounded-sm border border-border bg-input/30 px-4 py-2.5 text-sm outline-none focus:border-gold" />
         <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}
           className="rounded-sm border border-border bg-input/30 px-4 py-2.5 text-sm outline-none focus:border-gold">
-          <option>All</option><option>Available</option><option>Sold</option>
+          <option>All</option><option>Available</option><option>Coming Soon</option><option>Sold</option>
         </select>
         <button onClick={() => setCreating(true)}
           className="inline-flex items-center gap-2 rounded-sm bg-gradient-gold px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground shadow-gold">
