@@ -51,7 +51,7 @@ export async function fetchAvailableProperties() {
   const { data, error } = await supabase
     .from("properties")
     .select("*")
-    .eq("status", "Available")
+    .in("status", ["Available", "Coming Soon"])
     .order("featured", { ascending: false })
     .order("created_at", { ascending: false });
   if (error) throw error;

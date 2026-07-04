@@ -161,7 +161,7 @@ function PropertiesTab() {
           className="flex-1 rounded-sm border border-border bg-input/30 px-4 py-2.5 text-sm outline-none focus:border-gold" />
         <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}
           className="rounded-sm border border-border bg-input/30 px-4 py-2.5 text-sm outline-none focus:border-gold">
-          <option>All</option><option>Available</option><option>Sold</option>
+          <option>All</option><option>Available</option><option>Coming Soon</option><option>Sold</option>
         </select>
         <button onClick={() => setCreating(true)}
           className="inline-flex items-center gap-2 rounded-sm bg-gradient-gold px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground shadow-gold">
@@ -194,10 +194,21 @@ function PropertiesTab() {
                 <td className="p-3">{p.city}</td>
                 <td className="p-3">{p.price_display ?? (p.price ? `₹${p.price}` : "-")}</td>
                 <td className="p-3">
-                  <button onClick={() => toggleStatus(p)}
-                    className={`rounded-sm px-2 py-1 text-[10px] uppercase tracking-wider ${p.status === "Sold" ? "bg-destructive/20 text-destructive" : "bg-emerald-500/10 text-emerald-500"}`}>
-                    {p.status}
-                  </button>
+                  <select
+                    value={p.status}
+                    onChange={async (e) => {
+                      const newStatus = e.target.value;
+                      const { error } = await supabase.from("properties").update({ status: newStatus }).eq("id", p.id);
+                      if (error) return toast.error(error.message);
+                      toast.success(`Marked ${newStatus}`);
+                      reload();
+                    }}
+                    className={`rounded-sm border border-border bg-transparent px-2 py-1 text-[10px] uppercase tracking-wider ${p.status === "Sold" ? "text-destructive" : p.status === "Coming Soon" ? "text-gold" : "text-emerald-500"}`}
+                  >
+                    <option>Available</option>
+                    <option>Coming Soon</option>
+                    <option>Sold</option>
+                  </select>
                 </td>
                 <td className="p-3">
                   <button onClick={() => toggleFeatured(p)} className="text-gold" title={p.featured ? "Unfeature" : "Feature"}>
@@ -377,7 +388,7 @@ function PropertyEditor({ property, onClose, onSaved }: { property: DBProperty |
           </Field>
           <Field label="Status">
             <select value={form.status} onChange={(e) => set("status", e.target.value)} className={inputCls}>
-              <option>Available</option><option>Sold</option>
+              <option>Available</option><option>Coming Soon</option><option>Sold</option>
             </select>
           </Field>
           <Field label="Price (₹, numeric)"><input type="number" value={form.price} onChange={(e) => set("price", e.target.value)} className={inputCls} /></Field>
