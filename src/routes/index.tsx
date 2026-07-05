@@ -58,9 +58,9 @@ function Hero() {
 
       <div className="relative mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-center px-6 pb-20 pt-32 lg:px-10">
         <div className="max-w-3xl animate-fade-up">
-          <div className="inline-flex items-center gap-3 rounded-sm border border-gold/40 bg-card/40 px-4 py-2 backdrop-blur">
-            <Sparkles size={14} className="text-gold" />
-            <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold-soft">
+          <div className="inline-flex items-center gap-2 rounded-sm border border-gold/40 bg-card/40 px-3 py-1.5 backdrop-blur">
+            <Sparkles size={12} className="text-gold" />
+            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-gold-soft">
               {h.eyebrow}
             </span>
           </div>
