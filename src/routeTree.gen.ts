@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as GalleryRouteImport } from './routes/gallery'
@@ -17,9 +18,13 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PropertiesSlugRouteImport } from './routes/properties.$slug'
-import { Route as ApiSitemapDotxmlRouteImport } from './routes/api/sitemap[.]xml'
 import { Route as ApiPropertyImagesSplatRouteImport } from './routes/api/property-images/$'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PropertiesRoute = PropertiesRouteImport.update({
   id: '/properties',
   path: '/properties',
@@ -60,11 +65,6 @@ const PropertiesSlugRoute = PropertiesSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => PropertiesRoute,
 } as any)
-const ApiSitemapDotxmlRoute = ApiSitemapDotxmlRouteImport.update({
-  id: '/api/sitemap.xml',
-  path: '/api/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ApiPropertyImagesSplatRoute = ApiPropertyImagesSplatRouteImport.update({
   id: '/api/property-images/$',
   path: '/api/property-images/$',
@@ -79,7 +79,7 @@ export interface FileRoutesByFullPath {
   '/gallery': typeof GalleryRoute
   '/investors': typeof InvestorsRoute
   '/properties': typeof PropertiesRouteWithChildren
-  '/api/sitemap.xml': typeof ApiSitemapDotxmlRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
 }
@@ -91,7 +91,7 @@ export interface FileRoutesByTo {
   '/gallery': typeof GalleryRoute
   '/investors': typeof InvestorsRoute
   '/properties': typeof PropertiesRouteWithChildren
-  '/api/sitemap.xml': typeof ApiSitemapDotxmlRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
 }
@@ -104,7 +104,7 @@ export interface FileRoutesById {
   '/gallery': typeof GalleryRoute
   '/investors': typeof InvestorsRoute
   '/properties': typeof PropertiesRouteWithChildren
-  '/api/sitemap.xml': typeof ApiSitemapDotxmlRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
 }
@@ -118,7 +118,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/investors'
     | '/properties'
-    | '/api/sitemap.xml'
+    | '/sitemap.xml'
     | '/properties/$slug'
     | '/api/property-images/$'
   fileRoutesByTo: FileRoutesByTo
@@ -130,7 +130,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/investors'
     | '/properties'
-    | '/api/sitemap.xml'
+    | '/sitemap.xml'
     | '/properties/$slug'
     | '/api/property-images/$'
   id:
@@ -142,7 +142,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/investors'
     | '/properties'
-    | '/api/sitemap.xml'
+    | '/sitemap.xml'
     | '/properties/$slug'
     | '/api/property-images/$'
   fileRoutesById: FileRoutesById
@@ -155,12 +155,19 @@ export interface RootRouteChildren {
   GalleryRoute: typeof GalleryRoute
   InvestorsRoute: typeof InvestorsRoute
   PropertiesRoute: typeof PropertiesRouteWithChildren
-  ApiSitemapDotxmlRoute: typeof ApiSitemapDotxmlRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiPropertyImagesSplatRoute: typeof ApiPropertyImagesSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/properties': {
       id: '/properties'
       path: '/properties'
@@ -217,13 +224,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PropertiesSlugRouteImport
       parentRoute: typeof PropertiesRoute
     }
-    '/api/sitemap.xml': {
-      id: '/api/sitemap.xml'
-      path: '/api/sitemap.xml'
-      fullPath: '/api/sitemap.xml'
-      preLoaderRoute: typeof ApiSitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/api/property-images/$': {
       id: '/api/property-images/$'
       path: '/api/property-images/$'
@@ -254,9 +254,19 @@ const rootRouteChildren: RootRouteChildren = {
   GalleryRoute: GalleryRoute,
   InvestorsRoute: InvestorsRoute,
   PropertiesRoute: PropertiesRouteWithChildren,
-  ApiSitemapDotxmlRoute: ApiSitemapDotxmlRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiPropertyImagesSplatRoute: ApiPropertyImagesSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
