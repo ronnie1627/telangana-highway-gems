@@ -344,7 +344,8 @@ function PropertyEditor({ property, onClose, onSaved }: { property: DBProperty |
       const path = `properties/${property.id}/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
       const { error: upErr } = await supabase.storage.from("property-images").upload(path, file);
       if (upErr) { toast.error(upErr.message); continue; }
-      const imageUrl = storageImageUrl(path);
+      // Store the bare storage path (not the proxy URL) so storage read policies match.
+      const imageUrl = path;
       if (!firstUploadedUrl) firstUploadedUrl = imageUrl;
       const { error: insErr } = await supabase.from("property_images").insert({
         property_id: property.id, url: imageUrl, sort_order: currentLastOrder + index + 1,
