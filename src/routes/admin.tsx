@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminAuth } from "@/lib/admin-auth";
-import { resolveAssetUrl, storageImageUrl } from "@/lib/asset-url";
+import { resolveAssetUrl } from "@/lib/asset-url";
 import { PROPERTY_TYPES, type DBProperty, type DBPropertyImage } from "@/lib/property-types";
 import { LogOut, Plus, Pencil, Trash2, Upload, Star, StarOff, X } from "lucide-react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
