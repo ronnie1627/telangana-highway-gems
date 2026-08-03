@@ -32,6 +32,17 @@ function AdminLogin({ notAdmin }: { notAdmin: boolean }) {
   const [submitting, setSubmitting] = useState(false);
   const [mode, setMode] = useState<"signin" | "signup">("signin");
 
+  const onForgot = async () => {
+    if (!email) return toast.error("Enter your email first");
+    setSubmitting(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    setSubmitting(false);
+    if (error) toast.error(error.message);
+    else toast.success("Password reset link sent — check your inbox");
+  };
+
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
@@ -71,6 +82,10 @@ function AdminLogin({ notAdmin }: { notAdmin: boolean }) {
           <button type="button" onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
             className="w-full text-center text-xs text-muted-foreground hover:text-gold">
             {mode === "signin" ? "First time? Create the admin account" : "Already have an account? Sign in"}
+          </button>
+          <button type="button" onClick={onForgot} disabled={submitting}
+            className="w-full text-center text-xs text-muted-foreground hover:text-gold">
+            Forgot password? Send me a reset link
           </button>
         </form>
       </div>

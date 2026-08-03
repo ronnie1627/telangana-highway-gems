@@ -16,6 +16,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as PropertiesRouteImport } from './routes/properties'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PropertiesSlugRouteImport } from './routes/properties.$slug'
 import { Route as ApiPropertyImagesSplatRouteImport } from './routes/api/property-images/$'
@@ -55,6 +56,11 @@ const PropertiesRoute = PropertiesRouteImport.update({
   path: '/properties',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -79,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/gallery': typeof GalleryRoute
   '/investors': typeof InvestorsRoute
   '/properties': typeof PropertiesRouteWithChildren
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
@@ -91,6 +98,7 @@ export interface FileRoutesByTo {
   '/gallery': typeof GalleryRoute
   '/investors': typeof InvestorsRoute
   '/properties': typeof PropertiesRouteWithChildren
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
@@ -104,6 +112,7 @@ export interface FileRoutesById {
   '/gallery': typeof GalleryRoute
   '/investors': typeof InvestorsRoute
   '/properties': typeof PropertiesRouteWithChildren
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
@@ -118,6 +127,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/investors'
     | '/properties'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/properties/$slug'
     | '/api/property-images/$'
@@ -130,6 +140,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/investors'
     | '/properties'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/properties/$slug'
     | '/api/property-images/$'
@@ -142,6 +153,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/investors'
     | '/properties'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/properties/$slug'
     | '/api/property-images/$'
@@ -155,6 +167,7 @@ export interface RootRouteChildren {
   GalleryRoute: typeof GalleryRoute
   InvestorsRoute: typeof InvestorsRoute
   PropertiesRoute: typeof PropertiesRouteWithChildren
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiPropertyImagesSplatRoute: typeof ApiPropertyImagesSplatRoute
 }
@@ -210,6 +223,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PropertiesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -254,6 +274,7 @@ const rootRouteChildren: RootRouteChildren = {
   GalleryRoute: GalleryRoute,
   InvestorsRoute: InvestorsRoute,
   PropertiesRoute: PropertiesRouteWithChildren,
+  ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiPropertyImagesSplatRoute: ApiPropertyImagesSplatRoute,
 }
