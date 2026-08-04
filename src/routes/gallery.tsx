@@ -5,6 +5,7 @@ import { SectionHeader } from "@/components/site/SectionHeader";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ChevronLeft, ChevronRight, ZoomIn, Download, Share2 } from "lucide-react";
 import { resolveAssetUrl } from "@/lib/asset-url";
+import { supabase } from "@/integrations/supabase/client";
 
 const tags = ["All", "Warangal Highway", "Srisailam Highway", "Open Plots", "Villas", "Farm Lands", "Gated Communities", "Location Photos"] as const;
 
@@ -26,10 +27,54 @@ function Gallery() {
   const [tag, setTag] = useState<(typeof tags)[number]>("All");
   const [visible, setVisible] = useState(24);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [databaseImages, setDatabaseImages] = useState<Array<{ src: string; tag: string; caption: string }>>([]);
+
+  useEffect(() => {
+    let active = true;
+
+    const loadSrisailamImages = async () => {
+      const { data: properties, error: propertiesError } = await supabase
+        .from("properties")
+        .select("id,title")
+        .ilike("location_label", "%Srisailam Highway%");
+
+      if (propertiesError || !properties?.length) return;
+
+      const titles = new Map(properties.map((property) => [property.id, property.title]));
+      const { data: images, error: imagesError } = await supabase
+        .from("property_images")
+        .select("id,property_id,url,caption,sort_order")
+        .in("property_id", properties.map((property) => property.id))
+        .order("sort_order", { ascending: true });
+
+      if (imagesError || !active) return;
+
+      setDatabaseImages(
+        (images ?? []).map((image) => ({
+          src: image.url,
+          tag: "Srisailam Highway",
+          caption: image.caption?.trim() || titles.get(image.property_id) || "Srisailam Highway Project",
+        })),
+      );
+    };
+
+    void loadSrisailamImages();
+    return () => { active = false; };
+  }, []);
+
+  const allImages = useMemo(() => {
+    const seen = new Set<string>();
+    return [...databaseImages, ...galleryImages].filter((image) => {
+      const source = resolveAssetUrl(image.src);
+      if (seen.has(source)) return false;
+      seen.add(source);
+      return true;
+    });
+  }, [databaseImages]);
 
   const items = useMemo(
-    () => (tag === "All" ? galleryImages : galleryImages.filter((g) => g.tag === tag)),
-    [tag],
+    () => (tag === "All" ? allImages : allImages.filter((g) => g.tag === tag)),
+    [allImages, tag],
   );
   const shown = items.slice(0, visible);
 
