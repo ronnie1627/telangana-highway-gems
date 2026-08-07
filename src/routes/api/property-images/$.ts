@@ -12,8 +12,15 @@ export const Route = createFileRoute("/api/property-images/$")({
           return new Response("Not found", { status: 404 });
         }
 
-        const baseUrl = process.env.SUPABASE_URL;
-        const publishableKey = process.env.SUPABASE_PUBLISHABLE_KEY;
+        const env = import.meta.env as Record<string, string | undefined>;
+        const baseUrl =
+          process.env.SUPABASE_URL ||
+          env.VITE_SUPABASE_URL ||
+          "https://ucdirffvkhtosoiksxcw.supabase.co";
+        const publishableKey =
+          process.env.SUPABASE_PUBLISHABLE_KEY ||
+          env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVjZGlyZmZ2a2h0b3NvaWtzeGN3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI3Mjc4ODMsImV4cCI6MjA5ODMwMzg4M30.DKSqc16PZ38924jRYl3I2oTyDNcnI2LIeHg1yOWgeok";
         if (!baseUrl || !publishableKey) {
           return new Response("Storage is not configured", { status: 500 });
         }
