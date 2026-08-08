@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Phone, Mail, MapPin, Instagram, Facebook } from "lucide-react";
-import logoAsset from "@/assets/kk-realtors-logo.png.asset.json";
+import { storageImageUrl } from "@/lib/asset-url";
+
+const logoUrl = storageImageUrl("properties/kk-realtors-logo.png");
 
 export function Footer() {
   return (
@@ -10,7 +12,7 @@ export function Footer() {
         <div>
           <div className="flex items-center gap-3">
             <img
-              src={logoAsset.url}
+              src={logoUrl}
               alt="KK Realtors"
               className="h-32 w-auto object-contain"
             />
