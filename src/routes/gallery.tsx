@@ -1,42 +1,55 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState, useCallback, useEffect } from "react";
-import { galleryImages } from "@/data/properties";
 import { SectionHeader } from "@/components/site/SectionHeader";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ChevronLeft, ChevronRight, ZoomIn, Download, Share2 } from "lucide-react";
 import { resolveAssetUrl } from "@/lib/asset-url";
 import { publicSupabase as supabase } from "@/lib/public-supabase";
 
-const tags = [
-  "All",
+const TAG_ORDER = [
   "Srisailam Highway",
   "Warangal Highway",
   "Shadnagar",
+  "Bangalore Highway",
+  "Mumbai Highway",
   "Open Plots",
   "Villas",
   "Farm Lands",
   "Gated Communities",
-  "Location Photos",
-] as const;
+];
 
 type GalleryItem = { src: string; tag: string; tags: string[]; caption: string };
 
-function deriveTags(locationLabel: string | null, propertyType: string | null): string[] {
+/** Short project label used as its own filter chip (e.g. "Iconic-9"). */
+function projectTag(title: string): string {
+  return (title.split("—")[0] ?? title).trim();
+}
+
+function deriveTags(
+  title: string,
+  locationLabel: string | null,
+  propertyType: string | null,
+): string[] {
   const loc = (locationLabel ?? "").toLowerCase();
   const type = (propertyType ?? "").toLowerCase();
   const out: string[] = [];
 
-  if (loc.includes("srisailam")) out.push("Srisailam Highway");
-  if (loc.includes("warangal") || loc.includes("keesaragutta") || loc.includes("bibinagar")) out.push("Warangal Highway");
-  if (loc.includes("shadnagar") || loc.includes("burgula") || loc.includes("nagulapally")) out.push("Shadnagar");
+  if (loc.includes("srisailam") || loc.includes("amangal") || loc.includes("dindi") || loc.includes("kongarakalan") || loc.includes("future city"))
+    out.push("Srisailam Highway");
+  if (loc.includes("warangal") || loc.includes("keesaragutta") || loc.includes("bibinagar"))
+    out.push("Warangal Highway");
+  if (loc.includes("shadnagar") || loc.includes("burgula") || loc.includes("nagulapally"))
+    out.push("Shadnagar");
+  if (loc.includes("bangalore")) out.push("Bangalore Highway");
+  if (loc.includes("mumbai")) out.push("Mumbai Highway");
 
   if (type.includes("farm")) out.push("Farm Lands");
   else if (type.includes("villa") || type.includes("house")) out.push("Villas");
   else if (type.includes("gated")) out.push("Gated Communities");
   else if (type.includes("plot")) out.push("Open Plots");
 
-  if (!out.length) out.push("Location Photos");
-  return Array.from(new Set(out));
+  out.push(projectTag(title));
+  return Array.from(new Set(out.filter(Boolean)));
 }
 
 export const Route = createFileRoute("/gallery")({
@@ -54,7 +67,7 @@ export const Route = createFileRoute("/gallery")({
 });
 
 function Gallery() {
-  const [tag, setTag] = useState<(typeof tags)[number]>("All");
+  const [tag, setTag] = useState<string>("All");
   const [visible, setVisible] = useState(24);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [databaseImages, setDatabaseImages] = useState<GalleryItem[]>([]);
@@ -81,7 +94,7 @@ function Gallery() {
         (images ?? []).flatMap((image) => {
           const property = byId.get(image.property_id);
           if (!property) return [];
-          const itemTags = deriveTags(property.location_label, property.property_type);
+          const itemTags = deriveTags(property.title, property.location_label, property.property_type);
           return [{
             src: image.url,
             tag: itemTags[0],
@@ -98,17 +111,21 @@ function Gallery() {
 
   const allImages = useMemo<GalleryItem[]>(() => {
     const seen = new Set<string>();
-    const staticItems: GalleryItem[] = galleryImages.map((image) => ({
-      ...image,
-      tags: [image.tag],
-    }));
-    return [...databaseImages, ...staticItems].filter((image) => {
+    return databaseImages.filter((image) => {
       const source = resolveAssetUrl(image.src);
       if (seen.has(source)) return false;
       seen.add(source);
       return true;
     });
   }, [databaseImages]);
+
+  const tags = useMemo<string[]>(() => {
+    const present = new Set<string>();
+    allImages.forEach((image) => image.tags.forEach((t) => present.add(t)));
+    const ordered = TAG_ORDER.filter((t) => present.has(t));
+    const rest = [...present].filter((t) => !TAG_ORDER.includes(t)).sort();
+    return ["All", ...ordered, ...rest];
+  }, [allImages]);
 
   const items = useMemo(
     () => (tag === "All" ? allImages : allImages.filter((g) => g.tags.includes(tag))),
