@@ -5,7 +5,7 @@ import { SectionHeader } from "@/components/site/SectionHeader";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ChevronLeft, ChevronRight, ZoomIn, Download, Share2 } from "lucide-react";
 import { resolveAssetUrl } from "@/lib/asset-url";
-import { supabase } from "@/integrations/supabase/client";
+import { publicSupabase as supabase } from "@/lib/public-supabase";
 
 const tags = [
   "All",
