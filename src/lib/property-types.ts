@@ -1,4 +1,4 @@
-import { supabase } from "@/integrations/supabase/client";
+import { publicSupabase as supabase } from "@/lib/public-supabase";
 
 export type DBProperty = {
   id: string;
