@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1788361743837,
+      "tag": "0000_create_gallery_videos",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1788361782650,
+      "tag": "0001_property_videos_storage_policies",
+      "breakpoints": true
+    }
+  ]
+}
