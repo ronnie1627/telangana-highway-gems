@@ -20,6 +20,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PropertiesSlugRouteImport } from './routes/properties.$slug'
 import { Route as ApiPropertyImagesSplatRouteImport } from './routes/api/property-images/$'
+import { Route as ApiPropertyVideosSplatRouteImport } from './routes/api/property-videos/$'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -76,6 +77,11 @@ const ApiPropertyImagesSplatRoute = ApiPropertyImagesSplatRouteImport.update({
   path: '/api/property-images/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPropertyVideosSplatRoute = ApiPropertyVideosSplatRouteImport.update({
+  id: '/api/property-videos/$',
+  path: '/api/property-videos/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
+  '/api/property-videos/$': typeof ApiPropertyVideosSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
+  '/api/property-videos/$': typeof ApiPropertyVideosSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -116,6 +124,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
+  '/api/property-videos/$': typeof ApiPropertyVideosSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -131,6 +140,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/properties/$slug'
     | '/api/property-images/$'
+    | '/api/property-videos/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/properties/$slug'
     | '/api/property-images/$'
+    | '/api/property-videos/$'
   id:
     | '__root__'
     | '/'
@@ -157,6 +168,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/properties/$slug'
     | '/api/property-images/$'
+    | '/api/property-videos/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -170,6 +182,7 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiPropertyImagesSplatRoute: typeof ApiPropertyImagesSplatRoute
+  ApiPropertyVideosSplatRoute: typeof ApiPropertyVideosSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -251,6 +264,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPropertyImagesSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/property-videos/$': {
+      id: '/api/property-videos/$'
+      path: '/api/property-videos/$'
+      fullPath: '/api/property-videos/$'
+      preLoaderRoute: typeof ApiPropertyVideosSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -277,6 +297,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiPropertyImagesSplatRoute: ApiPropertyImagesSplatRoute,
+  ApiPropertyVideosSplatRoute: ApiPropertyVideosSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
