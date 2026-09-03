@@ -10,6 +10,7 @@ import type { DBProperty } from "@/lib/property-types";
 import { SectionHeader } from "@/components/site/SectionHeader";
 import { Stat } from "@/components/site/Stat";
 import { TrustBadges } from "@/components/site/TrustBadges";
+import { VideoGallery } from "@/components/site/VideoGallery";
 import { InquiryForm } from "@/components/site/InquiryForm";
 import { heroQuery, ctaQuery, HERO_DEFAULTS, CTA_DEFAULTS } from "@/lib/site-settings";
 
@@ -33,6 +34,7 @@ function Index() {
       <Hero />
       <FeaturedBand />
       <Featured />
+      <VideoGallery />
       <HowItWorks />
       <Corridors />
       <Trust />

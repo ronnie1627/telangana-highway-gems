@@ -7,6 +7,7 @@ import { resolveAssetUrl } from "@/lib/asset-url";
 import { PROPERTY_TYPES, type DBProperty, type DBPropertyImage } from "@/lib/property-types";
 import { LogOut, Plus, Pencil, Trash2, Upload, Star, StarOff, X } from "lucide-react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { VideosTab } from "@/components/admin/VideosTab";
 import { heroQuery, ctaQuery, HERO_DEFAULTS, CTA_DEFAULTS, saveSetting, type HeroSettings, type CtaSettings } from "@/lib/site-settings";
 
 export const Route = createFileRoute("/admin")({
@@ -94,7 +95,7 @@ function AdminLogin({ notAdmin }: { notAdmin: boolean }) {
 }
 
 function AdminDashboard({ email }: { email: string | null }) {
-  const [tab, setTab] = useState<"properties" | "inquiries" | "homepage">("properties");
+  const [tab, setTab] = useState<"properties" | "videos" | "inquiries" | "homepage">("properties");
   return (
     <div className="pt-32 pb-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -112,7 +113,7 @@ function AdminDashboard({ email }: { email: string | null }) {
         </div>
 
         <div className="mt-6 flex gap-2 border-b border-border">
-          {(["properties", "inquiries", "homepage"] as const).map((t) => (
+          {(["properties", "videos", "inquiries", "homepage"] as const).map((t) => (
             <button key={t} onClick={() => setTab(t)}
               className={`border-b-2 px-4 py-2 text-xs uppercase tracking-[0.2em] ${tab === t ? "border-gold text-gold" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
               {t}
@@ -122,6 +123,7 @@ function AdminDashboard({ email }: { email: string | null }) {
 
         <div className="mt-8">
           {tab === "properties" && <PropertiesTab />}
+          {tab === "videos" && <VideosTab />}
           {tab === "inquiries" && <InquiriesTab />}
           {tab === "homepage" && <HomepageTab />}
         </div>

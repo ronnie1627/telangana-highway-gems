@@ -50,6 +50,7 @@ export function VideosTab() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [editing, setEditing] = useState<AdminVideo | null>(null);
+  const [showEditor, setShowEditor] = useState(false);
   const [form, setForm] = useState<VideoForm>(emptyForm);
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
@@ -64,6 +65,7 @@ export function VideosTab() {
   useEffect(() => { reload(); }, []);
 
   const openNew = () => {
+    setShowEditor(true);
     setEditing(null);
     setForm(emptyForm);
     setVideoFile(null);
@@ -71,6 +73,7 @@ export function VideosTab() {
   };
 
   const openEdit = (video: AdminVideo) => {
+    setShowEditor(true);
     setEditing(video);
     setForm({ title: video.title, description: video.description ?? "", duration: video.duration ?? "", published: video.published });
     setVideoFile(null);
@@ -78,6 +81,7 @@ export function VideosTab() {
   };
 
   const closeEditor = () => {
+    setShowEditor(false);
     setEditing(null);
     setForm(emptyForm);
     setVideoFile(null);
@@ -146,14 +150,14 @@ export function VideosTab() {
           <h2 className="font-display text-2xl text-foreground">Video Gallery</h2>
           <p className="mt-1 text-sm text-muted-foreground">Upload property tours and control their public order.</p>
         </div>
-        {!editing && (
+        {!showEditor && (
           <button onClick={openNew} className="inline-flex items-center gap-2 rounded-sm bg-gradient-gold px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground shadow-gold">
             <Plus size={14} /> Add Video
           </button>
         )}
       </div>
 
-      {(!editing && form.title === "") || editing ? (
+      {showEditor ? (
         <section className="mt-6 rounded-sm border border-border bg-card p-6">
           <div className="flex items-center justify-between gap-3">
             <h3 className="font-display text-xl">{editing ? "Edit Video" : "Add Video"}</h3>
