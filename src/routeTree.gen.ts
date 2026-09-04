@@ -18,7 +18,6 @@ import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as CorridorsCorridorRouteImport } from './routes/corridors.$corridor'
 import { Route as PropertiesSlugRouteImport } from './routes/properties.$slug'
 import { Route as ApiPropertyImagesSplatRouteImport } from './routes/api/property-images/$'
 import { Route as ApiPropertyVideosSplatRouteImport } from './routes/api/property-videos/$'
@@ -68,11 +67,6 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CorridorsCorridorRoute = CorridorsCorridorRouteImport.update({
-  id: '/corridors/$corridor',
-  path: '/corridors/$corridor',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PropertiesSlugRoute = PropertiesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -99,7 +93,6 @@ export interface FileRoutesByFullPath {
   '/properties': typeof PropertiesRouteWithChildren
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/corridors/$corridor': typeof CorridorsCorridorRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
   '/api/property-videos/$': typeof ApiPropertyVideosSplatRoute
@@ -114,7 +107,6 @@ export interface FileRoutesByTo {
   '/properties': typeof PropertiesRouteWithChildren
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/corridors/$corridor': typeof CorridorsCorridorRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
   '/api/property-videos/$': typeof ApiPropertyVideosSplatRoute
@@ -130,7 +122,6 @@ export interface FileRoutesById {
   '/properties': typeof PropertiesRouteWithChildren
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/corridors/$corridor': typeof CorridorsCorridorRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
   '/api/property-videos/$': typeof ApiPropertyVideosSplatRoute
@@ -147,7 +138,6 @@ export interface FileRouteTypes {
     | '/properties'
     | '/reset-password'
     | '/sitemap.xml'
-    | '/corridors/$corridor'
     | '/properties/$slug'
     | '/api/property-images/$'
     | '/api/property-videos/$'
@@ -162,7 +152,6 @@ export interface FileRouteTypes {
     | '/properties'
     | '/reset-password'
     | '/sitemap.xml'
-    | '/corridors/$corridor'
     | '/properties/$slug'
     | '/api/property-images/$'
     | '/api/property-videos/$'
@@ -177,7 +166,6 @@ export interface FileRouteTypes {
     | '/properties'
     | '/reset-password'
     | '/sitemap.xml'
-    | '/corridors/$corridor'
     | '/properties/$slug'
     | '/api/property-images/$'
     | '/api/property-videos/$'
@@ -193,7 +181,6 @@ export interface RootRouteChildren {
   PropertiesRoute: typeof PropertiesRouteWithChildren
   ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  CorridorsCorridorRoute: typeof CorridorsCorridorRoute
   ApiPropertyImagesSplatRoute: typeof ApiPropertyImagesSplatRoute
   ApiPropertyVideosSplatRoute: typeof ApiPropertyVideosSplatRoute
 }
@@ -263,13 +250,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/corridors/$corridor': {
-      id: '/corridors/$corridor'
-      path: '/corridors/$corridor'
-      fullPath: '/corridors/$corridor'
-      preLoaderRoute: typeof CorridorsCorridorRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/properties/$slug': {
       id: '/properties/$slug'
       path: '/$slug'
@@ -316,7 +296,6 @@ const rootRouteChildren: RootRouteChildren = {
   PropertiesRoute: PropertiesRouteWithChildren,
   ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  CorridorsCorridorRoute: CorridorsCorridorRoute,
   ApiPropertyImagesSplatRoute: ApiPropertyImagesSplatRoute,
   ApiPropertyVideosSplatRoute: ApiPropertyVideosSplatRoute,
 }
