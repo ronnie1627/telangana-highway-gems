@@ -130,21 +130,33 @@ function FeaturedBand() {
   );
 }
 
+function FeaturedSkeleton() {
+  return (
+    <div className="overflow-hidden rounded-sm border border-border bg-card">
+      <div className="aspect-[4/3] w-full animate-pulse bg-muted" />
+      <div className="space-y-4 p-6">
+        <div className="h-5 w-3/4 animate-pulse rounded-sm bg-muted" />
+        <div className="h-4 w-1/2 animate-pulse rounded-sm bg-muted" />
+        <div className="flex gap-2">
+          <div className="h-5 w-16 animate-pulse rounded-sm bg-muted" />
+          <div className="h-5 w-16 animate-pulse rounded-sm bg-muted" />
+        </div>
+        <div className="h-10 w-full animate-pulse rounded-sm bg-muted" />
+      </div>
+    </div>
+  );
+}
+
 function Featured() {
-  const { data: featured = [], isLoading } = useQuery({
+  const { data: featured = [], isPending, isError } = useQuery({
     queryKey: ["properties", "featured"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("properties")
-        .select("*")
-        .in("status", ["Available", "Coming Soon"])
-        .eq("featured", true)
-        .order("created_at", { ascending: false })
-        .limit(6);
-      if (error) throw error;
-      return (data ?? []) as DBProperty[];
-    },
+    queryFn: () => fetchFeaturedProperties(6),
+    staleTime: 60_000,
   });
+
+  const fallback = properties.slice(0, 3);
+  const showFallback = isError && fallback.length > 0;
+
   return (
     <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
       <div className="flex flex-col items-end justify-between gap-6 sm:flex-row">
@@ -162,17 +174,31 @@ function Featured() {
         </Link>
       </div>
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {isLoading ? (
-          <p className="col-span-full text-center text-sm text-muted-foreground">Loading featured properties…</p>
+        {isPending ? (
+          Array.from({ length: 3 }).map((_, i) => <FeaturedSkeleton key={i} />)
+        ) : showFallback ? (
+          fallback.map((p) => <PropertyCard key={p.id} p={p} />)
         ) : featured.length > 0 ? (
           featured.slice(0, 3).map((p) => <DBPropertyCard key={p.id} p={p} />)
         ) : (
-          properties.slice(0, 3).map((p) => <PropertyCard key={p.id} p={p} />)
+          <div className="col-span-full rounded-sm border border-dashed border-border bg-card/40 px-6 py-16 text-center">
+            <p className="font-display text-xl text-foreground">No featured properties right now</p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              New verified plots, villas and farm lands are added regularly — browse the full catalogue meanwhile.
+            </p>
+            <Link
+              to="/properties"
+              className="mt-6 inline-flex items-center gap-2 rounded-sm bg-gradient-gold px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-primary-foreground"
+            >
+              View All Properties <ArrowRight size={14} />
+            </Link>
+          </div>
         )}
       </div>
     </section>
   );
 }
+
 
 function HowItWorks() {
   const steps = [
