@@ -77,3 +77,14 @@ export async function fetchPropertyImages(propertyId: string) {
   if (error) throw error;
   return (data ?? []) as DBPropertyImage[];
 }
+export async function fetchFeaturedProperties(limit = 6) {
+  const { data, error } = await supabase
+    .from("properties")
+    .select("*")
+    .in("status", ["Available", "Coming Soon"])
+    .eq("featured", true)
+    .order("created_at", { ascending: false })
+    .limit(limit);
+  if (error) throw error;
+  return (data ?? []) as DBProperty[];
+}
