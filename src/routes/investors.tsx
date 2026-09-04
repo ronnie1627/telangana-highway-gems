@@ -51,7 +51,7 @@ function Investors() {
           <div className="mx-auto mt-12 grid max-w-2xl grid-cols-3 gap-6 border-t border-border pt-8">
             <Stat value="3-5x" label="Avg. 5-yr ROI" />
             <Stat value="₹6.9L+" label="Entry Price" />
-            <Stat value="4" label="Growth Corridors" />
+            <Stat value="5" label="Growth Corridors" />
           </div>
         </div>
       </section>
