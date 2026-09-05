@@ -37,7 +37,7 @@ export function storageImagePath(src?: string | null): string {
   if (!src) return "";
   if (src.startsWith(STORAGE_PROXY_PREFIX)) return src.slice(STORAGE_PROXY_PREFIX.length);
   if (src.startsWith(`${STORAGE_BUCKET}/`)) return src.slice(STORAGE_BUCKET.length + 1);
-  if (src.startsWith("properties/")) return src;
+  if (src.startsWith("properties/") || src.startsWith("corridors/")) return src;
   const fromStorage = pathFromStorageUrl(src);
   if (fromStorage) return fromStorage;
   const file = filenameFromPath(src);
@@ -51,7 +51,7 @@ export function storageImageUrl(pathOrUrl?: string | null): string {
 
 export function resolveAssetUrl(src?: string | null): string {
   if (!src) return "";
-  if (src.startsWith(STORAGE_PROXY_PREFIX) || src.startsWith(`${STORAGE_BUCKET}/`) || src.startsWith("properties/")) {
+  if (src.startsWith(STORAGE_PROXY_PREFIX) || src.startsWith(`${STORAGE_BUCKET}/`) || src.startsWith("properties/") || src.startsWith("corridors/")) {
     return storageImageUrl(src);
   }
   if (pathFromStorageUrl(src)) return storageImageUrl(src);

@@ -230,11 +230,11 @@ function HowItWorks() {
 
 function Corridors() {
   const corridors = [
-    { name: "Mumbai Highway", points: "Budhera · Zaheerabad" },
-    { name: "Bangalore Highway", points: "Shadnagar · Kothur" },
-    { name: "Vijayawada Highway", points: "HMDA Villa Communities" },
-    { name: "Srisailam Highway", points: "Premium Plots & Farms" },
-    { name: "Warangal Highway", points: "Emerging Growth Corridor" },
+    { name: "Mumbai Highway", points: "Budhera · Zaheerabad", slug: "mumbai-highway" },
+    { name: "Bangalore Highway", points: "Shadnagar · Kothur", slug: "bangalore-highway" },
+    { name: "Vijayawada Highway", points: "HMDA Villa Communities", slug: "vijayawada-highway" },
+    { name: "Srisailam Highway", points: "Premium Plots & Farms", slug: "srisailam-highway" },
+    { name: "Warangal Highway", points: "Emerging Growth Corridor", slug: "warangal-highway" },
   ];
   return (
     <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
@@ -245,11 +245,12 @@ function Corridors() {
       />
       <div className="mt-12 grid gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">
         {corridors.map((c) => (
-          <div key={c.name} className="group cursor-default bg-card p-8 transition-colors hover:bg-card/60">
+          <Link key={c.name} to="/corridors/$slug" params={{ slug: c.slug }} className="group block bg-card p-8 transition-colors hover:bg-card/60">
             <div className="text-[11px] uppercase tracking-[0.3em] text-gold">Corridor</div>
             <h3 className="mt-3 font-display text-2xl text-foreground transition-colors group-hover:text-gold">{c.name}</h3>
             <p className="mt-3 text-sm text-muted-foreground">{c.points}</p>
-          </div>
+            <span className="mt-5 inline-block text-[11px] uppercase tracking-[0.2em] text-gold opacity-0 transition-opacity group-hover:opacity-100">View gallery →</span>
+          </Link>
         ))}
       </div>
     </section>
