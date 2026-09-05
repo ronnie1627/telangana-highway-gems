@@ -18,6 +18,7 @@ import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as CorridorsIndexRouteImport } from './routes/corridors.index'
 import { Route as PropertiesSlugRouteImport } from './routes/properties.$slug'
 import { Route as ApiPropertyImagesSplatRouteImport } from './routes/api/property-images/$'
 import { Route as ApiPropertyVideosSplatRouteImport } from './routes/api/property-videos/$'
@@ -67,6 +68,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CorridorsIndexRoute = CorridorsIndexRouteImport.update({
+  id: '/corridors/',
+  path: '/corridors/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PropertiesSlugRoute = PropertiesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/properties/$slug': typeof PropertiesSlugRoute
+  '/corridors/': typeof CorridorsIndexRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
   '/api/property-videos/$': typeof ApiPropertyVideosSplatRoute
 }
@@ -108,6 +115,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/properties/$slug': typeof PropertiesSlugRoute
+  '/corridors': typeof CorridorsIndexRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
   '/api/property-videos/$': typeof ApiPropertyVideosSplatRoute
 }
@@ -123,6 +131,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/properties/$slug': typeof PropertiesSlugRoute
+  '/corridors/': typeof CorridorsIndexRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
   '/api/property-videos/$': typeof ApiPropertyVideosSplatRoute
 }
@@ -139,6 +148,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/sitemap.xml'
     | '/properties/$slug'
+    | '/corridors/'
     | '/api/property-images/$'
     | '/api/property-videos/$'
   fileRoutesByTo: FileRoutesByTo
@@ -153,6 +163,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/sitemap.xml'
     | '/properties/$slug'
+    | '/corridors'
     | '/api/property-images/$'
     | '/api/property-videos/$'
   id:
@@ -167,6 +178,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/sitemap.xml'
     | '/properties/$slug'
+    | '/corridors/'
     | '/api/property-images/$'
     | '/api/property-videos/$'
   fileRoutesById: FileRoutesById
@@ -181,6 +193,7 @@ export interface RootRouteChildren {
   PropertiesRoute: typeof PropertiesRouteWithChildren
   ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  CorridorsIndexRoute: typeof CorridorsIndexRoute
   ApiPropertyImagesSplatRoute: typeof ApiPropertyImagesSplatRoute
   ApiPropertyVideosSplatRoute: typeof ApiPropertyVideosSplatRoute
 }
@@ -250,6 +263,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/corridors/': {
+      id: '/corridors/'
+      path: '/corridors'
+      fullPath: '/corridors/'
+      preLoaderRoute: typeof CorridorsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/properties/$slug': {
       id: '/properties/$slug'
       path: '/$slug'
@@ -296,6 +316,7 @@ const rootRouteChildren: RootRouteChildren = {
   PropertiesRoute: PropertiesRouteWithChildren,
   ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  CorridorsIndexRoute: CorridorsIndexRoute,
   ApiPropertyImagesSplatRoute: ApiPropertyImagesSplatRoute,
   ApiPropertyVideosSplatRoute: ApiPropertyVideosSplatRoute,
 }
