@@ -19,6 +19,7 @@ import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as CorridorsIndexRouteImport } from './routes/corridors.index'
+import { Route as CorridorsSlugRouteImport } from './routes/corridors.$slug'
 import { Route as PropertiesSlugRouteImport } from './routes/properties.$slug'
 import { Route as ApiPropertyImagesSplatRouteImport } from './routes/api/property-images/$'
 import { Route as ApiPropertyVideosSplatRouteImport } from './routes/api/property-videos/$'
@@ -73,6 +74,11 @@ const CorridorsIndexRoute = CorridorsIndexRouteImport.update({
   path: '/corridors/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CorridorsSlugRoute = CorridorsSlugRouteImport.update({
+  id: '/corridors/$slug',
+  path: '/corridors/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PropertiesSlugRoute = PropertiesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -99,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/properties': typeof PropertiesRouteWithChildren
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/corridors/$slug': typeof CorridorsSlugRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/corridors/': typeof CorridorsIndexRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
@@ -114,6 +121,7 @@ export interface FileRoutesByTo {
   '/properties': typeof PropertiesRouteWithChildren
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/corridors/$slug': typeof CorridorsSlugRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/corridors': typeof CorridorsIndexRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
@@ -130,6 +138,7 @@ export interface FileRoutesById {
   '/properties': typeof PropertiesRouteWithChildren
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/corridors/$slug': typeof CorridorsSlugRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/corridors/': typeof CorridorsIndexRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
@@ -147,6 +156,7 @@ export interface FileRouteTypes {
     | '/properties'
     | '/reset-password'
     | '/sitemap.xml'
+    | '/corridors/$slug'
     | '/properties/$slug'
     | '/corridors/'
     | '/api/property-images/$'
@@ -162,6 +172,7 @@ export interface FileRouteTypes {
     | '/properties'
     | '/reset-password'
     | '/sitemap.xml'
+    | '/corridors/$slug'
     | '/properties/$slug'
     | '/corridors'
     | '/api/property-images/$'
@@ -177,6 +188,7 @@ export interface FileRouteTypes {
     | '/properties'
     | '/reset-password'
     | '/sitemap.xml'
+    | '/corridors/$slug'
     | '/properties/$slug'
     | '/corridors/'
     | '/api/property-images/$'
@@ -193,6 +205,7 @@ export interface RootRouteChildren {
   PropertiesRoute: typeof PropertiesRouteWithChildren
   ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  CorridorsSlugRoute: typeof CorridorsSlugRoute
   CorridorsIndexRoute: typeof CorridorsIndexRoute
   ApiPropertyImagesSplatRoute: typeof ApiPropertyImagesSplatRoute
   ApiPropertyVideosSplatRoute: typeof ApiPropertyVideosSplatRoute
@@ -270,6 +283,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CorridorsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/corridors/$slug': {
+      id: '/corridors/$slug'
+      path: '/corridors/$slug'
+      fullPath: '/corridors/$slug'
+      preLoaderRoute: typeof CorridorsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/properties/$slug': {
       id: '/properties/$slug'
       path: '/$slug'
@@ -316,6 +336,7 @@ const rootRouteChildren: RootRouteChildren = {
   PropertiesRoute: PropertiesRouteWithChildren,
   ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  CorridorsSlugRoute: CorridorsSlugRoute,
   CorridorsIndexRoute: CorridorsIndexRoute,
   ApiPropertyImagesSplatRoute: ApiPropertyImagesSplatRoute,
   ApiPropertyVideosSplatRoute: ApiPropertyVideosSplatRoute,
