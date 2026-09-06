@@ -6,6 +6,7 @@ import { fetchPropertyBySlug, fetchPropertyImages } from "@/lib/property-types";
 import { resolveAssetUrl } from "@/lib/asset-url";
 import { InquiryForm } from "@/components/site/InquiryForm";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { PhotoGallery } from "@/components/site/PhotoGallery";
 
 export const Route = createFileRoute("/properties/$slug")({
   component: PropertyDetail,
@@ -79,13 +80,10 @@ function PropertyDetail() {
                   <img src={gallery[0].url} alt={property.title} className="w-full h-[420px] object-cover" />
                 </button>
                 {gallery.length > 1 && (
-                  <div className="grid grid-cols-4 gap-2">
-                    {gallery.slice(1, 9).map((g, idx) => (
-                      <button key={idx} onClick={() => setLightbox(idx + 1)} className="overflow-hidden rounded-sm">
-                        <img src={g.url} alt={g.caption} className="h-24 w-full object-cover transition-transform hover:scale-105" />
-                      </button>
-                    ))}
-                  </div>
+                  <PhotoGallery
+                    photos={gallery.slice(1).map((g) => ({ url: g.url, caption: g.caption }))}
+                    columns="grid-cols-3 sm:grid-cols-4"
+                  />
                 )}
               </>
             )}
