@@ -8,6 +8,7 @@ const logoUrl = storageImageUrl("properties/kk-realtors-logo.png");
 const links = [
   { to: "/", label: "Home" },
   { to: "/properties", label: "Properties" },
+  { to: "/corridors", label: "Corridors" },
   { to: "/investors", label: "Investors" },
   { to: "/gallery", label: "Gallery" },
   { to: "/about", label: "About" },
