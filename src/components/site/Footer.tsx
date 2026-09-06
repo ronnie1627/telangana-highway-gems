@@ -37,6 +37,7 @@ export function Footer() {
             <li><Link to="/properties" className="hover:text-foreground">Properties</Link></li>
             <li><Link to="/investors" className="hover:text-foreground">Investors</Link></li>
             <li><Link to="/gallery" className="hover:text-foreground">Gallery</Link></li>
+            <li><Link to="/emi-calculator" className="hover:text-foreground">EMI Calculator</Link></li>
             <li><Link to="/about" className="hover:text-foreground">About Us</Link></li>
             <li><Link to="/contact" className="hover:text-foreground">Contact</Link></li>
           </ul>
