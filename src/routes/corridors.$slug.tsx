@@ -11,7 +11,26 @@ import {
 } from "@/lib/corridor-types";
 import type { DBProperty } from "@/lib/property-types";
 
+function titleize(slug: string) {
+  return slug.split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+}
+
 export const Route = createFileRoute("/corridors/$slug")({
+  head: ({ params }) => {
+    const name = titleize(params.slug);
+    const description = `Photo gallery, development updates and available open plots, villas and farm lands along the ${name} corridor near Hyderabad, Telangana.`;
+    return {
+      meta: [
+        { title: `${name} Corridor — Plots & Farm Lands | KK Realtors` },
+        { name: "description", content: description },
+        { property: "og:title", content: `${name} Corridor | KK Realtors` },
+        { property: "og:description", content: description },
+        { property: "og:type", content: "article" },
+        { name: "twitter:card", content: "summary_large_image" },
+      ],
+      links: [{ rel: "canonical", href: `/corridors/${params.slug}` }],
+    };
+  },
   component: CorridorPage,
 });
 
