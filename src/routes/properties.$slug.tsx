@@ -4,7 +4,9 @@ import { useState } from "react";
 import { MapPin, Phone, Mail, MessageCircle, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { fetchPropertyBySlug, fetchPropertyImages } from "@/lib/property-types";
 import { resolveAssetUrl } from "@/lib/asset-url";
+import { parseListingPrice } from "@/lib/utils";
 import { InquiryForm } from "@/components/site/InquiryForm";
+import { EmiCalculator } from "@/components/site/EmiCalculator";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { PhotoGallery } from "@/components/site/PhotoGallery";
 
@@ -47,6 +49,8 @@ function PropertyDetail() {
     : property.cover_image
     ? [{ url: resolveAssetUrl(property.cover_image), caption: property.title }]
     : [];
+
+  const listingPrice = property.price ?? parseListingPrice(property.price_display);
 
   const activeImg = lightbox !== null ? gallery[lightbox] : null;
   const goNext = () => setLightbox((i) => (i !== null && i < gallery.length - 1 ? i + 1 : i));
@@ -184,6 +188,8 @@ function PropertyDetail() {
                 <InquiryForm compact propertyId={property.id} propertyTitle={property.title} />
               </div>
             </div>
+
+            <EmiCalculator propertyPrice={listingPrice} title={property.title} />
           </aside>
         </div>
       </div>
