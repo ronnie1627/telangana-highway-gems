@@ -5,9 +5,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAdminAuth } from "@/lib/admin-auth";
 import { resolveAssetUrl } from "@/lib/asset-url";
 import { PROPERTY_TYPES, type DBProperty, type DBPropertyImage } from "@/lib/property-types";
-import { LogOut, Plus, Pencil, Trash2, Upload, Star, StarOff, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, LogOut, Plus, Pencil, Trash2, Upload, Star, StarOff, X } from "lucide-react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { VideosTab } from "@/components/admin/VideosTab";
+import { CorridorsTab } from "@/components/admin/CorridorsTab";
 import { heroQuery, ctaQuery, HERO_DEFAULTS, CTA_DEFAULTS, saveSetting, type HeroSettings, type CtaSettings } from "@/lib/site-settings";
 
 export const Route = createFileRoute("/admin")({
@@ -95,7 +96,7 @@ function AdminLogin({ notAdmin }: { notAdmin: boolean }) {
 }
 
 function AdminDashboard({ email }: { email: string | null }) {
-  const [tab, setTab] = useState<"properties" | "videos" | "inquiries" | "homepage">("properties");
+  const [tab, setTab] = useState<"properties" | "corridors" | "videos" | "inquiries" | "homepage">("properties");
   return (
     <div className="pt-32 pb-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -113,7 +114,7 @@ function AdminDashboard({ email }: { email: string | null }) {
         </div>
 
         <div className="mt-6 flex gap-2 border-b border-border">
-          {(["properties", "videos", "inquiries", "homepage"] as const).map((t) => (
+          {(["properties", "corridors", "videos", "inquiries", "homepage"] as const).map((t) => (
             <button key={t} onClick={() => setTab(t)}
               className={`border-b-2 px-4 py-2 text-xs uppercase tracking-[0.2em] ${tab === t ? "border-gold text-gold" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
               {t}
@@ -123,6 +124,7 @@ function AdminDashboard({ email }: { email: string | null }) {
 
         <div className="mt-8">
           {tab === "properties" && <PropertiesTab />}
+          {tab === "corridors" && <CorridorsTab />}
           {tab === "videos" && <VideosTab />}
           {tab === "inquiries" && <InquiriesTab />}
           {tab === "homepage" && <HomepageTab />}
@@ -384,6 +386,18 @@ function PropertyEditor({ property, onClose, onSaved }: { property: DBProperty |
     setImages((imgs) => imgs.filter((i) => i.id !== img.id));
   };
 
+  const moveImage = async (index: number, dir: -1 | 1) => {
+    const target = index + dir;
+    if (target < 0 || target >= images.length) return;
+    const next = [...images];
+    [next[index], next[target]] = [next[target], next[index]];
+    setImages(next);
+    for (const [i, img] of next.entries()) {
+      const { error } = await supabase.from("property_images").update({ sort_order: i + 1 }).eq("id", img.id);
+      if (error) toast.error(error.message);
+    }
+  };
+
   const setAsCover = async (img: DBPropertyImage) => {
     if (!property) return;
     const { error } = await supabase.from("properties").update({ cover_image: img.url }).eq("id", property.id);
@@ -449,11 +463,13 @@ function PropertyEditor({ property, onClose, onSaved }: { property: DBProperty |
               </label>
             </div>
             <div className="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-4">
-              {images.map((img) => (
+              {images.map((img, i) => (
                 <div key={img.id} className="group relative overflow-hidden rounded-sm border border-border">
                   <img src={resolveAssetUrl(img.url)} alt="" className="h-28 w-full object-cover" />
                   <div className="absolute inset-0 hidden items-end justify-between gap-1 bg-black/60 p-2 group-hover:flex">
-                    <button onClick={() => setAsCover(img)} className="rounded-sm bg-background/80 px-2 py-1 text-[10px]">Set cover</button>
+                    <button onClick={() => moveImage(i, -1)} aria-label="Move earlier" className="rounded-sm bg-background/80 px-2 py-1"><ArrowLeft size={12} /></button>
+                    <button onClick={() => moveImage(i, 1)} aria-label="Move later" className="rounded-sm bg-background/80 px-2 py-1"><ArrowRight size={12} /></button>
+                    <button onClick={() => setAsCover(img)} className="rounded-sm bg-background/80 px-2 py-1 text-[10px]">Cover</button>
                     <button onClick={() => removeImage(img)} className="rounded-sm bg-destructive/80 px-2 py-1 text-[10px] text-destructive-foreground"><Trash2 size={12} /></button>
                   </div>
                 </div>
