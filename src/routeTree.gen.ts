@@ -21,6 +21,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as CorridorsIndexRouteImport } from './routes/corridors.index'
 import { Route as CorridorsSlugRouteImport } from './routes/corridors.$slug'
+import { Route as PropertiesIndexRouteImport } from './routes/properties.index'
 import { Route as PropertiesSlugRouteImport } from './routes/properties.$slug'
 import { Route as ApiPropertyImagesSplatRouteImport } from './routes/api/property-images/$'
 import { Route as ApiPropertyVideosSplatRouteImport } from './routes/api/property-videos/$'
@@ -85,6 +86,11 @@ const CorridorsSlugRoute = CorridorsSlugRouteImport.update({
   path: '/corridors/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PropertiesIndexRoute = PropertiesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PropertiesRoute,
+} as any)
 const PropertiesSlugRoute = PropertiesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -115,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/corridors/$slug': typeof CorridorsSlugRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/corridors/': typeof CorridorsIndexRoute
+  '/properties/': typeof PropertiesIndexRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
   '/api/property-videos/$': typeof ApiPropertyVideosSplatRoute
 }
@@ -126,12 +133,12 @@ export interface FileRoutesByTo {
   '/emi-calculator': typeof EmiCalculatorRoute
   '/gallery': typeof GalleryRoute
   '/investors': typeof InvestorsRoute
-  '/properties': typeof PropertiesRouteWithChildren
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/corridors/$slug': typeof CorridorsSlugRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/corridors': typeof CorridorsIndexRoute
+  '/properties': typeof PropertiesIndexRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
   '/api/property-videos/$': typeof ApiPropertyVideosSplatRoute
 }
@@ -150,6 +157,7 @@ export interface FileRoutesById {
   '/corridors/$slug': typeof CorridorsSlugRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/corridors/': typeof CorridorsIndexRoute
+  '/properties/': typeof PropertiesIndexRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
   '/api/property-videos/$': typeof ApiPropertyVideosSplatRoute
 }
@@ -169,6 +177,7 @@ export interface FileRouteTypes {
     | '/corridors/$slug'
     | '/properties/$slug'
     | '/corridors/'
+    | '/properties/'
     | '/api/property-images/$'
     | '/api/property-videos/$'
   fileRoutesByTo: FileRoutesByTo
@@ -180,12 +189,12 @@ export interface FileRouteTypes {
     | '/emi-calculator'
     | '/gallery'
     | '/investors'
-    | '/properties'
     | '/reset-password'
     | '/sitemap.xml'
     | '/corridors/$slug'
     | '/properties/$slug'
     | '/corridors'
+    | '/properties'
     | '/api/property-images/$'
     | '/api/property-videos/$'
   id:
@@ -203,6 +212,7 @@ export interface FileRouteTypes {
     | '/corridors/$slug'
     | '/properties/$slug'
     | '/corridors/'
+    | '/properties/'
     | '/api/property-images/$'
     | '/api/property-videos/$'
   fileRoutesById: FileRoutesById
@@ -310,6 +320,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CorridorsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/properties/': {
+      id: '/properties/'
+      path: '/'
+      fullPath: '/properties/'
+      preLoaderRoute: typeof PropertiesIndexRouteImport
+      parentRoute: typeof PropertiesRoute
+    }
     '/properties/$slug': {
       id: '/properties/$slug'
       path: '/$slug'
@@ -336,10 +353,12 @@ declare module '@tanstack/react-router' {
 
 interface PropertiesRouteChildren {
   PropertiesSlugRoute: typeof PropertiesSlugRoute
+  PropertiesIndexRoute: typeof PropertiesIndexRoute
 }
 
 const PropertiesRouteChildren: PropertiesRouteChildren = {
   PropertiesSlugRoute: PropertiesSlugRoute,
+  PropertiesIndexRoute: PropertiesIndexRoute,
 }
 
 const PropertiesRouteWithChildren = PropertiesRoute._addFileChildren(

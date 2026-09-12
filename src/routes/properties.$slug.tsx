@@ -4,53 +4,54 @@ import { useState } from "react";
 import { MapPin, Phone, Mail, MessageCircle, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { fetchPropertyBySlug, fetchPropertyImages } from "@/lib/property-types";
 import { resolveAssetUrl } from "@/lib/asset-url";
-import { parseListingPrice } from "@/lib/utils";
 import { InquiryForm } from "@/components/site/InquiryForm";
-import { EmiCalculator } from "@/components/site/EmiCalculator";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { PhotoGallery } from "@/components/site/PhotoGallery";
+import { EmiCalculator } from "@/components/site/EmiCalculator";
+import { parseListingPrice } from "@/lib/utils";
 
 export const Route = createFileRoute("/properties/$slug")({
+  loader: async ({ params }) => {
+    const property = await fetchPropertyBySlug(params.slug);
+    if (!property) throw notFound();
+    return { property };
+  },
+  head: ({ loaderData }) => {
+    const p = loaderData?.property;
+    const title = p ? `${p.title} — ${p.property_type} in ${p.city ?? "Telangana"} | KK Realtors` : "Property Details | KK Realtors";
+    const description = p
+      ? `${p.property_type} at ${p.location_label ?? p.city ?? ""}. ${p.price_display ?? ""} ${p.approvals?.join(", ") ?? ""}. ${p.description?.slice(0, 120) ?? ""}`.trim()
+      : "Explore verified HMDA, DTCP and LRS approved plots, villas and farm lands with KK Realtors.";
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:type", content: "website" },
+        { name: "twitter:card", content: "summary" },
+      ],
+      links: [{ rel: "canonical", href: p ? `/properties/${p.slug}` : "/properties" }],
+    };
+  },
   component: PropertyDetail,
 });
 
 function PropertyDetail() {
-  const { slug } = Route.useParams();
-  const { data: property, isLoading } = useQuery({
-    queryKey: ["property", slug],
-    queryFn: async () => {
-      const p = await fetchPropertyBySlug(slug);
-      if (!p) throw notFound();
-      return p;
-    },
-  });
+  const { property } = Route.useLoaderData();
   const { data: images = [] } = useQuery({
-    queryKey: ["property-images", property?.id],
-    queryFn: () => fetchPropertyImages(property!.id),
-    enabled: !!property?.id,
+    queryKey: ["property-images", property.id],
+    queryFn: () => fetchPropertyImages(property.id),
+    enabled: !!property.id,
   });
 
   const [lightbox, setLightbox] = useState<number | null>(null);
-
-  if (isLoading) {
-    return <div className="pt-40 pb-24 text-center text-muted-foreground">Loading…</div>;
-  }
-  if (!property) {
-    return (
-      <div className="pt-40 pb-24 text-center">
-        <p className="text-muted-foreground">Property not found.</p>
-        <Link to="/properties" className="mt-4 inline-block text-gold underline">← Back to properties</Link>
-      </div>
-    );
-  }
 
   const gallery = images.length > 0
     ? images.map((i) => ({ url: resolveAssetUrl(i.url), caption: i.caption ?? property.title }))
     : property.cover_image
     ? [{ url: resolveAssetUrl(property.cover_image), caption: property.title }]
     : [];
-
-  const listingPrice = property.price ?? parseListingPrice(property.price_display);
 
   const activeImg = lightbox !== null ? gallery[lightbox] : null;
   const goNext = () => setLightbox((i) => (i !== null && i < gallery.length - 1 ? i + 1 : i));
@@ -65,6 +66,8 @@ function PropertyDetail() {
     : property.address
     ? `https://www.google.com/maps?q=${encodeURIComponent(property.address + " " + (property.city ?? ""))}&output=embed`
     : null;
+
+  const listingPrice = property.price ?? parseListingPrice(property.price_display);
 
   return (
     <div className="pt-32 pb-24">
