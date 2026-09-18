@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Phone, Mail, MapPin, Instagram, Facebook } from "lucide-react";
+import { Phone, Mail, MapPin, Instagram, Facebook, Youtube } from "lucide-react";
 import { storageImageUrl } from "@/lib/asset-url";
 
 const logoUrl = storageImageUrl("properties/kk-realtors-logo.png");
@@ -27,6 +27,9 @@ export function Footer() {
             </a>
             <a href="https://www.facebook.com/profile.php?id=61594123948135" target="_blank" rel="noopener noreferrer" className="grid h-9 w-9 place-items-center rounded-sm border border-border text-muted-foreground transition-colors hover:border-gold hover:text-gold">
               <Facebook size={16} />
+            </a>
+            <a href="https://www.youtube.com/@KKrealtorsTelangana" target="_blank" rel="noopener noreferrer" className="grid h-9 w-9 place-items-center rounded-sm border border-border text-muted-foreground transition-colors hover:border-gold hover:text-gold">
+              <Youtube size={16} />
             </a>
           </div>
         </div>
