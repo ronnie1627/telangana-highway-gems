@@ -22,10 +22,10 @@ export function Footer() {
             fastest-growing highway corridors.
           </p>
           <div className="mt-6 flex gap-3">
-            <a href="#" className="grid h-9 w-9 place-items-center rounded-sm border border-border text-muted-foreground transition-colors hover:border-gold hover:text-gold">
+            <a href="https://www.instagram.com/kkrealtors02/" target="_blank" rel="noopener noreferrer" className="grid h-9 w-9 place-items-center rounded-sm border border-border text-muted-foreground transition-colors hover:border-gold hover:text-gold">
               <Instagram size={16} />
             </a>
-            <a href="#" className="grid h-9 w-9 place-items-center rounded-sm border border-border text-muted-foreground transition-colors hover:border-gold hover:text-gold">
+            <a href="https://www.facebook.com/profile.php?id=61594123948135" target="_blank" rel="noopener noreferrer" className="grid h-9 w-9 place-items-center rounded-sm border border-border text-muted-foreground transition-colors hover:border-gold hover:text-gold">
               <Facebook size={16} />
             </a>
           </div>
