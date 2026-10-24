@@ -49,6 +49,7 @@ async function uploadFile(file: File, folder: string) {
 
 export function VideosTab() {
   const [items, setItems] = useState<AdminVideo[]>([]);
+  const [properties, setProperties] = useState<{ id: string; title: string }[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [editing, setEditing] = useState<AdminVideo | null>(null);
@@ -64,7 +65,10 @@ export function VideosTab() {
     setItems((data as AdminVideo[]) ?? []);
     setLoading(false);
   };
-  useEffect(() => { reload(); }, []);
+  useEffect(() => {
+    reload();
+    supabase.from("properties").select("id,title").order("title").then(({ data }) => setProperties((data as { id: string; title: string }[]) ?? []));
+  }, []);
 
   const openNew = () => {
     setShowEditor(true);
@@ -77,7 +81,7 @@ export function VideosTab() {
   const openEdit = (video: AdminVideo) => {
     setShowEditor(true);
     setEditing(video);
-    setForm({ title: video.title, description: video.description ?? "", duration: video.duration ?? "", published: video.published });
+    setForm({ title: video.title, description: video.description ?? "", duration: video.duration ?? "", published: video.published, property_id: video.property_id ?? "" });
     setVideoFile(null);
     setThumbnailFile(null);
   };
