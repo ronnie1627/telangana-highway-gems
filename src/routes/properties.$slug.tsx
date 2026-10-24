@@ -2,8 +2,9 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { MapPin, Phone, Mail, MessageCircle, ChevronLeft, ChevronRight, X } from "lucide-react";
-import { fetchPropertyBySlug, fetchPropertyImages } from "@/lib/property-types";
+import { fetchPropertyBySlug, fetchPropertyImages, fetchPropertyVideos, videoMediaUrl } from "@/lib/property-types";
 import { resolveAssetUrl } from "@/lib/asset-url";
+import { parseYouTubeId, youtubeEmbedUrl } from "@/lib/youtube";
 import { InquiryForm } from "@/components/site/InquiryForm";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { PhotoGallery } from "@/components/site/PhotoGallery";
@@ -44,8 +45,14 @@ function PropertyDetail() {
     queryFn: () => fetchPropertyImages(property.id),
     enabled: !!property.id,
   });
+  const { data: propertyVideos = [] } = useQuery({
+    queryKey: ["property-videos", property.id],
+    queryFn: () => fetchPropertyVideos(property.id),
+    enabled: !!property.id,
+  });
 
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const youtubeId = parseYouTubeId(property.youtube_url);
 
   const gallery = images.length > 0
     ? images.map((i) => ({ url: resolveAssetUrl(i.url), caption: i.caption ?? property.title }))
