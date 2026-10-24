@@ -109,6 +109,7 @@ export function VideosTab() {
         description: form.description.trim() || null,
         duration: form.duration.trim() || null,
         published: form.published,
+        property_id: form.property_id || null,
         video_url: videoUrl,
         thumbnail_url: thumbnailUrl,
       };
@@ -175,6 +176,12 @@ export function VideosTab() {
             </label>
             <label className="block text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Duration
               <input value={form.duration} onChange={(event) => setForm((value) => ({ ...value, duration: event.target.value }))} className={inputCls} placeholder="0:22" />
+            </label>
+            <label className="block text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Linked property (optional)
+              <select value={form.property_id} onChange={(event) => setForm((value) => ({ ...value, property_id: event.target.value }))} className={inputCls}>
+                <option value="">— Not linked to a property —</option>
+                {properties.map((property) => <option key={property.id} value={property.id}>{property.title}</option>)}
+              </select>
             </label>
             <label className="flex items-end gap-3 pb-2 text-sm text-foreground"><input type="checkbox" checked={form.published} onChange={(event) => setForm((value) => ({ ...value, published: event.target.checked }))} className="h-4 w-4 accent-gold" /> Show in public gallery</label>
             <label className="sm:col-span-2 block text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Description
