@@ -12,6 +12,7 @@ type AdminVideo = {
   duration: string | null;
   sort_order: number;
   published: boolean;
+  property_id: string | null;
 };
 
 type VideoForm = {
@@ -19,9 +20,10 @@ type VideoForm = {
   description: string;
   duration: string;
   published: boolean;
+  property_id: string;
 };
 
-const emptyForm: VideoForm = { title: "", description: "", duration: "", published: true };
+const emptyForm: VideoForm = { title: "", description: "", duration: "", published: true, property_id: "" };
 const inputCls = "mt-2 w-full rounded-sm border border-border bg-input/30 px-3 py-2.5 text-sm outline-none focus:border-gold";
 
 function storagePath(value: string | null) {
