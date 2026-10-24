@@ -21,6 +21,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as CorridorsIndexRouteImport } from './routes/corridors.index'
 import { Route as CorridorsSlugRouteImport } from './routes/corridors.$slug'
+import { Route as GalleryIndexRouteImport } from './routes/gallery.index'
 import { Route as PropertiesIndexRouteImport } from './routes/properties.index'
 import { Route as PropertiesSlugRouteImport } from './routes/properties.$slug'
 import { Route as ApiPropertyImagesSplatRouteImport } from './routes/api/property-images/$'
@@ -86,6 +87,11 @@ const CorridorsSlugRoute = CorridorsSlugRouteImport.update({
   path: '/corridors/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GalleryIndexRoute = GalleryIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => GalleryRoute,
+} as any)
 const PropertiesIndexRoute = PropertiesIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -113,7 +119,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
-  '/gallery': typeof GalleryRoute
+  '/gallery': typeof GalleryRouteWithChildren
   '/investors': typeof InvestorsRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/reset-password': typeof ResetPasswordRoute
@@ -121,6 +127,7 @@ export interface FileRoutesByFullPath {
   '/corridors/$slug': typeof CorridorsSlugRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/corridors/': typeof CorridorsIndexRoute
+  '/gallery/': typeof GalleryIndexRoute
   '/properties/': typeof PropertiesIndexRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
   '/api/property-videos/$': typeof ApiPropertyVideosSplatRoute
@@ -131,13 +138,13 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRoute
   '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
-  '/gallery': typeof GalleryRoute
   '/investors': typeof InvestorsRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/corridors/$slug': typeof CorridorsSlugRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/corridors': typeof CorridorsIndexRoute
+  '/gallery': typeof GalleryIndexRoute
   '/properties': typeof PropertiesIndexRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
   '/api/property-videos/$': typeof ApiPropertyVideosSplatRoute
@@ -149,7 +156,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
-  '/gallery': typeof GalleryRoute
+  '/gallery': typeof GalleryRouteWithChildren
   '/investors': typeof InvestorsRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/reset-password': typeof ResetPasswordRoute
@@ -157,6 +164,7 @@ export interface FileRoutesById {
   '/corridors/$slug': typeof CorridorsSlugRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/corridors/': typeof CorridorsIndexRoute
+  '/gallery/': typeof GalleryIndexRoute
   '/properties/': typeof PropertiesIndexRoute
   '/api/property-images/$': typeof ApiPropertyImagesSplatRoute
   '/api/property-videos/$': typeof ApiPropertyVideosSplatRoute
@@ -177,6 +185,7 @@ export interface FileRouteTypes {
     | '/corridors/$slug'
     | '/properties/$slug'
     | '/corridors/'
+    | '/gallery/'
     | '/properties/'
     | '/api/property-images/$'
     | '/api/property-videos/$'
@@ -187,13 +196,13 @@ export interface FileRouteTypes {
     | '/admin'
     | '/contact'
     | '/emi-calculator'
-    | '/gallery'
     | '/investors'
     | '/reset-password'
     | '/sitemap.xml'
     | '/corridors/$slug'
     | '/properties/$slug'
     | '/corridors'
+    | '/gallery'
     | '/properties'
     | '/api/property-images/$'
     | '/api/property-videos/$'
@@ -212,6 +221,7 @@ export interface FileRouteTypes {
     | '/corridors/$slug'
     | '/properties/$slug'
     | '/corridors/'
+    | '/gallery/'
     | '/properties/'
     | '/api/property-images/$'
     | '/api/property-videos/$'
@@ -223,7 +233,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   ContactRoute: typeof ContactRoute
   EmiCalculatorRoute: typeof EmiCalculatorRoute
-  GalleryRoute: typeof GalleryRoute
+  GalleryRoute: typeof GalleryRouteWithChildren
   InvestorsRoute: typeof InvestorsRoute
   PropertiesRoute: typeof PropertiesRouteWithChildren
   ResetPasswordRoute: typeof ResetPasswordRoute
@@ -320,6 +330,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CorridorsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/gallery/': {
+      id: '/gallery/'
+      path: '/'
+      fullPath: '/gallery/'
+      preLoaderRoute: typeof GalleryIndexRouteImport
+      parentRoute: typeof GalleryRoute
+    }
     '/properties/': {
       id: '/properties/'
       path: '/'
@@ -351,6 +368,17 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface GalleryRouteChildren {
+  GalleryIndexRoute: typeof GalleryIndexRoute
+}
+
+const GalleryRouteChildren: GalleryRouteChildren = {
+  GalleryIndexRoute: GalleryIndexRoute,
+}
+
+const GalleryRouteWithChildren =
+  GalleryRoute._addFileChildren(GalleryRouteChildren)
+
 interface PropertiesRouteChildren {
   PropertiesSlugRoute: typeof PropertiesSlugRoute
   PropertiesIndexRoute: typeof PropertiesIndexRoute
@@ -371,7 +399,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   ContactRoute: ContactRoute,
   EmiCalculatorRoute: EmiCalculatorRoute,
-  GalleryRoute: GalleryRoute,
+  GalleryRoute: GalleryRouteWithChildren,
   InvestorsRoute: InvestorsRoute,
   PropertiesRoute: PropertiesRouteWithChildren,
   ResetPasswordRoute: ResetPasswordRoute,
