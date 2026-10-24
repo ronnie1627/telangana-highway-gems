@@ -94,6 +94,7 @@ export type Database = {
           description: string | null
           duration: string | null
           id: string
+          property_id: string | null
           published: boolean
           sort_order: number
           thumbnail_url: string | null
@@ -106,6 +107,7 @@ export type Database = {
           description?: string | null
           duration?: string | null
           id?: string
+          property_id?: string | null
           published?: boolean
           sort_order?: number
           thumbnail_url?: string | null
@@ -118,6 +120,7 @@ export type Database = {
           description?: string | null
           duration?: string | null
           id?: string
+          property_id?: string | null
           published?: boolean
           sort_order?: number
           thumbnail_url?: string | null
@@ -125,7 +128,15 @@ export type Database = {
           updated_at?: string
           video_url?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "gallery_videos_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       inquiries: {
         Row: {
@@ -203,6 +214,7 @@ export type Database = {
           status: string
           title: string
           updated_at: string
+          youtube_url: string | null
         }
         Insert: {
           address?: string | null
@@ -229,6 +241,7 @@ export type Database = {
           status?: string
           title: string
           updated_at?: string
+          youtube_url?: string | null
         }
         Update: {
           address?: string | null
@@ -255,6 +268,7 @@ export type Database = {
           status?: string
           title?: string
           updated_at?: string
+          youtube_url?: string | null
         }
         Relationships: []
       }

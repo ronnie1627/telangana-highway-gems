@@ -271,6 +271,7 @@ type FormState = {
   address: string; city: string; state: string; pincode: string;
   google_maps_url: string; amenities: string; approvals: string;
   featured: boolean; highlight: string; location_label: string; cover_image: string;
+  youtube_url: string;
 };
 
 function toForm(p: DBProperty | null): FormState {
@@ -294,6 +295,7 @@ function toForm(p: DBProperty | null): FormState {
     highlight: p?.highlight ?? "",
     location_label: p?.location_label ?? "",
     cover_image: p?.cover_image ?? "",
+    youtube_url: p?.youtube_url ?? "",
   };
 }
 
@@ -340,6 +342,7 @@ function PropertyEditor({ property, onClose, onSaved }: { property: DBProperty |
       highlight: form.highlight || null,
       location_label: form.location_label || null,
       cover_image: form.cover_image || null,
+      youtube_url: form.youtube_url.trim() || null,
     };
 
     let result;
@@ -446,6 +449,9 @@ function PropertyEditor({ property, onClose, onSaved }: { property: DBProperty |
           </Field>
           <Field label="Cover Image URL" span2>
             <input value={form.cover_image} onChange={(e) => set("cover_image", e.target.value)} placeholder="Upload below or paste URL" className={inputCls} />
+          </Field>
+          <Field label="YouTube Video URL" span2>
+            <input value={form.youtube_url} onChange={(e) => set("youtube_url", e.target.value)} placeholder="https://www.youtube.com/watch?v=…" className={inputCls} />
           </Field>
           <label className="flex items-center gap-2 text-sm sm:col-span-2">
             <input type="checkbox" checked={form.featured} onChange={(e) => set("featured", e.target.checked)} />

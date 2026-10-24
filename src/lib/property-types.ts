@@ -23,6 +23,7 @@ export type DBProperty = {
   cover_image: string | null;
   highlight: string | null;
   location_label: string | null;
+  youtube_url: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -77,6 +78,34 @@ export async function fetchPropertyImages(propertyId: string) {
   if (error) throw error;
   return (data ?? []) as DBPropertyImage[];
 }
+export type DBGalleryVideo = {
+  id: string;
+  title: string;
+  description: string | null;
+  thumbnail_url: string | null;
+  video_url: string;
+  duration: string | null;
+};
+
+/** Videos uploaded to storage and linked to a single property. */
+export async function fetchPropertyVideos(propertyId: string) {
+  const { data, error } = await supabase
+    .from("gallery_videos")
+    .select("id, title, description, thumbnail_url, video_url, duration")
+    .eq("property_id", propertyId)
+    .eq("published", true)
+    .order("sort_order", { ascending: true });
+  if (error) throw error;
+  return (data ?? []) as DBGalleryVideo[];
+}
+
+/** Resolve a stored video path (or passthrough URLs) to a playable URL. */
+export function videoMediaUrl(value: string | null | undefined) {
+  if (!value) return "";
+  if (/^(https?:|data:|blob:|\/)/.test(value)) return value;
+  return `/api/property-videos/${value.split("/").map(encodeURIComponent).join("/")}`;
+}
+
 export async function fetchFeaturedProperties(limit = 6) {
   const { data, error } = await supabase
     .from("properties")

@@ -12,6 +12,7 @@ type AdminVideo = {
   duration: string | null;
   sort_order: number;
   published: boolean;
+  property_id: string | null;
 };
 
 type VideoForm = {
@@ -19,9 +20,10 @@ type VideoForm = {
   description: string;
   duration: string;
   published: boolean;
+  property_id: string;
 };
 
-const emptyForm: VideoForm = { title: "", description: "", duration: "", published: true };
+const emptyForm: VideoForm = { title: "", description: "", duration: "", published: true, property_id: "" };
 const inputCls = "mt-2 w-full rounded-sm border border-border bg-input/30 px-3 py-2.5 text-sm outline-none focus:border-gold";
 
 function storagePath(value: string | null) {
@@ -47,6 +49,7 @@ async function uploadFile(file: File, folder: string) {
 
 export function VideosTab() {
   const [items, setItems] = useState<AdminVideo[]>([]);
+  const [properties, setProperties] = useState<{ id: string; title: string }[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [editing, setEditing] = useState<AdminVideo | null>(null);
@@ -62,7 +65,10 @@ export function VideosTab() {
     setItems((data as AdminVideo[]) ?? []);
     setLoading(false);
   };
-  useEffect(() => { reload(); }, []);
+  useEffect(() => {
+    reload();
+    supabase.from("properties").select("id,title").order("title").then(({ data }) => setProperties((data as { id: string; title: string }[]) ?? []));
+  }, []);
 
   const openNew = () => {
     setShowEditor(true);
@@ -75,7 +81,7 @@ export function VideosTab() {
   const openEdit = (video: AdminVideo) => {
     setShowEditor(true);
     setEditing(video);
-    setForm({ title: video.title, description: video.description ?? "", duration: video.duration ?? "", published: video.published });
+    setForm({ title: video.title, description: video.description ?? "", duration: video.duration ?? "", published: video.published, property_id: video.property_id ?? "" });
     setVideoFile(null);
     setThumbnailFile(null);
   };
@@ -103,6 +109,7 @@ export function VideosTab() {
         description: form.description.trim() || null,
         duration: form.duration.trim() || null,
         published: form.published,
+        property_id: form.property_id || null,
         video_url: videoUrl,
         thumbnail_url: thumbnailUrl,
       };
@@ -170,6 +177,12 @@ export function VideosTab() {
             <label className="block text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Duration
               <input value={form.duration} onChange={(event) => setForm((value) => ({ ...value, duration: event.target.value }))} className={inputCls} placeholder="0:22" />
             </label>
+            <label className="block text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Linked property (optional)
+              <select value={form.property_id} onChange={(event) => setForm((value) => ({ ...value, property_id: event.target.value }))} className={inputCls}>
+                <option value="">— Not linked to a property —</option>
+                {properties.map((property) => <option key={property.id} value={property.id}>{property.title}</option>)}
+              </select>
+            </label>
             <label className="flex items-end gap-3 pb-2 text-sm text-foreground"><input type="checkbox" checked={form.published} onChange={(event) => setForm((value) => ({ ...value, published: event.target.checked }))} className="h-4 w-4 accent-gold" /> Show in public gallery</label>
             <label className="sm:col-span-2 block text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Description
               <textarea rows={3} value={form.description} onChange={(event) => setForm((value) => ({ ...value, description: event.target.value }))} className={inputCls} placeholder="A short note about the location or tour" />
@@ -194,7 +207,7 @@ export function VideosTab() {
           <tbody>
             {loading ? <tr><td colSpan={4} className="p-6 text-center text-muted-foreground">Loading…</td></tr> : items.length === 0 ? <tr><td colSpan={4} className="p-6 text-center text-muted-foreground">No videos yet.</td></tr> : items.map((video, index) => (
               <tr key={video.id} className="border-t border-border">
-                <td className="p-3"><div className="flex items-center gap-3"><div className="h-14 w-24 overflow-hidden rounded-sm bg-muted">{video.thumbnail_url && <img src={previewUrl(video.thumbnail_url)} alt="" className="h-full w-full object-cover" />}</div><div><p className="font-medium text-foreground">{video.title}</p>{video.description && <p className="mt-1 max-w-md truncate text-xs text-muted-foreground">{video.description}</p>}</div></div></td>
+                <td className="p-3"><div className="flex items-center gap-3"><div className="h-14 w-24 overflow-hidden rounded-sm bg-muted">{video.thumbnail_url && <img src={previewUrl(video.thumbnail_url)} alt="" className="h-full w-full object-cover" />}</div><div><p className="font-medium text-foreground">{video.title}</p>{video.description && <p className="mt-1 max-w-md truncate text-xs text-muted-foreground">{video.description}</p>}{video.property_id && <p className="mt-1 text-[10px] uppercase tracking-wider text-gold">Property: {properties.find((p) => p.id === video.property_id)?.title ?? "—"}</p>}</div></div></td>
                 <td className="p-3 text-muted-foreground">{video.duration ?? "—"}</td>
                 <td className="p-3"><button onClick={async () => { const { error } = await supabase.from("gallery_videos").update({ published: !video.published }).eq("id", video.id); if (error) toast.error(error.message); else reload(); }} className={`rounded-sm border px-2 py-1 text-[10px] uppercase tracking-wider ${video.published ? "border-emerald-500/50 text-emerald-500" : "border-border text-muted-foreground"}`}>{video.published ? "Published" : "Hidden"}</button></td>
                 <td className="p-3"><div className="flex justify-end gap-1"><button onClick={() => move(index, -1)} disabled={index === 0} className="grid h-8 w-8 place-items-center rounded-sm border border-border hover:border-gold hover:text-gold disabled:opacity-30" aria-label="Move video up"><ArrowUp size={14} /></button><button onClick={() => move(index, 1)} disabled={index === items.length - 1} className="grid h-8 w-8 place-items-center rounded-sm border border-border hover:border-gold hover:text-gold disabled:opacity-30" aria-label="Move video down"><ArrowDown size={14} /></button><button onClick={() => openEdit(video)} className="grid h-8 w-8 place-items-center rounded-sm border border-border hover:border-gold hover:text-gold" aria-label={`Edit ${video.title}`}><Pencil size={14} /></button><button onClick={() => remove(video)} className="grid h-8 w-8 place-items-center rounded-sm border border-border hover:border-destructive hover:text-destructive" aria-label={`Delete ${video.title}`}><Trash2 size={14} /></button></div></td>

@@ -2,8 +2,9 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { MapPin, Phone, Mail, MessageCircle, ChevronLeft, ChevronRight, X } from "lucide-react";
-import { fetchPropertyBySlug, fetchPropertyImages } from "@/lib/property-types";
+import { fetchPropertyBySlug, fetchPropertyImages, fetchPropertyVideos, videoMediaUrl } from "@/lib/property-types";
 import { resolveAssetUrl } from "@/lib/asset-url";
+import { parseYouTubeId, youtubeEmbedUrl } from "@/lib/youtube";
 import { InquiryForm } from "@/components/site/InquiryForm";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { PhotoGallery } from "@/components/site/PhotoGallery";
@@ -44,8 +45,14 @@ function PropertyDetail() {
     queryFn: () => fetchPropertyImages(property.id),
     enabled: !!property.id,
   });
+  const { data: propertyVideos = [] } = useQuery({
+    queryKey: ["property-videos", property.id],
+    queryFn: () => fetchPropertyVideos(property.id),
+    enabled: !!property.id,
+  });
 
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const youtubeId = parseYouTubeId(property.youtube_url);
 
   const gallery = images.length > 0
     ? images.map((i) => ({ url: resolveAssetUrl(i.url), caption: i.caption ?? property.title }))
@@ -162,6 +169,39 @@ function PropertyDetail() {
                   </div>
                 </div>
               )}
+
+              <div>
+                <h3 className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Property Video</h3>
+                {youtubeId ? (
+                  <div className="mt-2 aspect-video overflow-hidden rounded-sm border border-border bg-black">
+                    <iframe
+                      src={youtubeEmbedUrl(youtubeId)}
+                      title={`${property.title} — property video`}
+                      className="h-full w-full"
+                      loading="lazy"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      referrerPolicy="strict-origin-when-cross-origin"
+                    />
+                  </div>
+                ) : null}
+                {propertyVideos.map((video) => (
+                  <div key={video.id} className="mt-3 overflow-hidden rounded-sm border border-border bg-black">
+                    <video
+                      src={videoMediaUrl(video.video_url)}
+                      poster={video.thumbnail_url ? videoMediaUrl(video.thumbnail_url) : undefined}
+                      controls
+                      preload="metadata"
+                      playsInline
+                      className="aspect-video w-full"
+                    />
+                    <p className="bg-background px-4 py-3 text-sm text-muted-foreground">{video.title}</p>
+                  </div>
+                ))}
+                {!youtubeId && propertyVideos.length === 0 && (
+                  <p className="mt-2 text-sm text-muted-foreground">Property videos coming soon for this listing.</p>
+                )}
+              </div>
             </div>
           </div>
 
