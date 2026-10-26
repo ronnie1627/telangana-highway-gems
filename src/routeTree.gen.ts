@@ -22,6 +22,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as CorridorsIndexRouteImport } from './routes/corridors.index'
 import { Route as CorridorsSlugRouteImport } from './routes/corridors.$slug'
 import { Route as GalleryIndexRouteImport } from './routes/gallery.index'
+import { Route as GalleryVideosRouteImport } from './routes/gallery.videos'
 import { Route as PropertiesIndexRouteImport } from './routes/properties.index'
 import { Route as PropertiesSlugRouteImport } from './routes/properties.$slug'
 import { Route as ApiPropertyImagesSplatRouteImport } from './routes/api/property-images/$'
@@ -92,6 +93,11 @@ const GalleryIndexRoute = GalleryIndexRouteImport.update({
   path: '/',
   getParentRoute: () => GalleryRoute,
 } as any)
+const GalleryVideosRoute = GalleryVideosRouteImport.update({
+  id: '/videos',
+  path: '/videos',
+  getParentRoute: () => GalleryRoute,
+} as any)
 const PropertiesIndexRoute = PropertiesIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -125,6 +131,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/corridors/$slug': typeof CorridorsSlugRoute
+  '/gallery/videos': typeof GalleryVideosRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/corridors/': typeof CorridorsIndexRoute
   '/gallery/': typeof GalleryIndexRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/corridors/$slug': typeof CorridorsSlugRoute
+  '/gallery/videos': typeof GalleryVideosRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/corridors': typeof CorridorsIndexRoute
   '/gallery': typeof GalleryIndexRoute
@@ -162,6 +170,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/corridors/$slug': typeof CorridorsSlugRoute
+  '/gallery/videos': typeof GalleryVideosRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/corridors/': typeof CorridorsIndexRoute
   '/gallery/': typeof GalleryIndexRoute
@@ -183,6 +192,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/sitemap.xml'
     | '/corridors/$slug'
+    | '/gallery/videos'
     | '/properties/$slug'
     | '/corridors/'
     | '/gallery/'
@@ -200,6 +210,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/sitemap.xml'
     | '/corridors/$slug'
+    | '/gallery/videos'
     | '/properties/$slug'
     | '/corridors'
     | '/gallery'
@@ -219,6 +230,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/sitemap.xml'
     | '/corridors/$slug'
+    | '/gallery/videos'
     | '/properties/$slug'
     | '/corridors/'
     | '/gallery/'
@@ -337,6 +349,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryIndexRouteImport
       parentRoute: typeof GalleryRoute
     }
+    '/gallery/videos': {
+      id: '/gallery/videos'
+      path: '/videos'
+      fullPath: '/gallery/videos'
+      preLoaderRoute: typeof GalleryVideosRouteImport
+      parentRoute: typeof GalleryRoute
+    }
     '/properties/': {
       id: '/properties/'
       path: '/'
@@ -369,10 +388,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface GalleryRouteChildren {
+  GalleryVideosRoute: typeof GalleryVideosRoute
   GalleryIndexRoute: typeof GalleryIndexRoute
 }
 
 const GalleryRouteChildren: GalleryRouteChildren = {
+  GalleryVideosRoute: GalleryVideosRoute,
   GalleryIndexRoute: GalleryIndexRoute,
 }
 
